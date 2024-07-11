@@ -1,9 +1,12 @@
 package com.asalavei.model.entities.creatures;
 
+import com.asalavei.model.common.Coordinates;
+
 public class Predator extends Creature {
     private int attackDamage;
 
-    public Predator() {
+    public Predator(Coordinates coordinates) {
+        super(coordinates);
         this.attackDamage = 5;
     }
 
