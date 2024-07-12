@@ -1,12 +1,12 @@
 package com.asalavei.model.common;
 
 import com.asalavei.model.entities.Entity;
-import com.asalavei.model.entities.creatures.Predator;
+import com.asalavei.model.entities.creatures.Creature;
 
 import java.util.HashMap;
 
 public class Map {
-    private int size;
+    private final int size;
     private HashMap<Coordinates, Entity> entities = new HashMap<>();
 
     public Map(int size) {
@@ -17,15 +17,15 @@ public class Map {
         return size;
     }
 
+    public void setEntity(Coordinates coordinates, Entity entity) {
+        if (entity instanceof Creature creature) {
+            creature.setCoordinates(coordinates);
+        }
+
+        entities.put(coordinates, entity);
+    }
+
     public boolean isSquareEmpty(Coordinates coordinates) {
-        Coordinates coordinatesPredator1 = new Coordinates(1, 5);
-        Coordinates coordinatesPredator2 = new Coordinates(5, 2);
-        Coordinates coordinatesPredator3 = new Coordinates(7, 8);
-
-        entities.put(coordinatesPredator1, new Predator());
-        entities.put(coordinatesPredator2, new Predator());
-        entities.put(coordinatesPredator3, new Predator());
-
         return !entities.containsKey(coordinates);
     }
 }
