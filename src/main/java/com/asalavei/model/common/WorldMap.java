@@ -4,12 +4,13 @@ import com.asalavei.model.entities.Entity;
 import com.asalavei.model.entities.creatures.Creature;
 
 import java.util.HashMap;
+import java.util.Map;
 
-public class Map {
+public class WorldMap {
     private final int size;
-    private HashMap<Coordinates, Entity> entities = new HashMap<>();
+    private Map<Coordinates, Entity> entities = new HashMap<>();
 
-    private Map(int size) {
+    private WorldMap(int size) {
         this.size = size;
     }
 
@@ -17,8 +18,16 @@ public class Map {
         return size;
     }
 
-    public static Map create(int size) {
-        return new Map(size);
+    public Entity getEntity(Coordinates coordinates) {
+        return entities.get(coordinates);
+    }
+
+    public Map<Coordinates, Entity> getEntities() {
+        return entities;
+    }
+
+    public static WorldMap create(int size) {
+        return new WorldMap(size);
     }
 
     public void setEntity(Coordinates coordinates, Entity entity) {
