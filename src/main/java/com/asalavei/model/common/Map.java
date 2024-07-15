@@ -9,12 +9,16 @@ public class Map {
     private final int size;
     private HashMap<Coordinates, Entity> entities = new HashMap<>();
 
-    public Map(int size) {
+    private Map(int size) {
         this.size = size;
     }
 
     public int getSize() {
         return size;
+    }
+
+    public static Map create(int size) {
+        return new Map(size);
     }
 
     public void setEntity(Coordinates coordinates, Entity entity) {
