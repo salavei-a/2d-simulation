@@ -1,5 +1,12 @@
 package com.asalavei.actions;
 
-public class MoveCreature implements Action {
+import com.asalavei.model.common.WorldMap;
 
+public class MoveCreature extends Action {
+
+    @Override
+    public WorldMap doAction(WorldMap map) {
+
+        return map;
+    }
 }
