@@ -6,7 +6,7 @@ import com.asalavei.model.common.WorldMap;
 
 import java.util.Random;
 
-public class InitEntity extends Action {
+public class InitAction extends Action {
 
     @Override
     public WorldMap doAction(WorldMap map) {
