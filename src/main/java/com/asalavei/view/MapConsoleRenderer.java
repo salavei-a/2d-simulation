@@ -1,12 +1,12 @@
 package com.asalavei.view;
 
 import com.asalavei.model.common.Coordinates;
-import com.asalavei.model.common.Map;
+import com.asalavei.model.common.WorldMap;
 import com.asalavei.model.entities.Entity;
 
 public class MapConsoleRenderer implements Renderer {
 
-    public void render(Map map, Entity entityToMove) {
+    public void render(WorldMap map, Entity entity) {
         int mapSize = map.getSize();
 
         for (int row = mapSize; row >= 1; row--) {
@@ -15,9 +15,9 @@ public class MapConsoleRenderer implements Renderer {
                 Coordinates coordinates = new Coordinates(row, column);
 
                 if (map.isSquareEmpty(coordinates)) {
-                    line += " ☐ ";
+                    line += "⬛";
                 } else {
-                    line += " ☑ ";
+                    line += "" + getEntitySprite(map.getEntity(coordinates)) + "";
                 }
             }
 
@@ -26,7 +26,30 @@ public class MapConsoleRenderer implements Renderer {
     }
 
     @Override
-    public void render(Map map) {
+    public void render(WorldMap map) {
         render(map, null);
+    }
+
+    private String getEntitySprite(Entity entity) {
+        return selectUnicodeSpriteForEntity(entity);
+    }
+
+    private String selectUnicodeSpriteForEntity(Entity entity) {
+        switch (entity.getClass().getSimpleName()) {
+            case "Predator":
+                return "🦁";
+
+            case "Herbivore":
+                return "🐐";
+
+            case "Rock":
+                return "🪨";
+
+            case "Grass":
+                return "🌿";
+
+            default:
+                throw new IllegalArgumentException(("Unknown entity: " + entity));
+        }
     }
 }

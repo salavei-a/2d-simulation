@@ -1,7 +1,7 @@
 package com.asalavei.view;
 
-import com.asalavei.model.common.Map;
+import com.asalavei.model.common.WorldMap;
 
 public interface Renderer {
-    void render(Map map);
+    void render(WorldMap map);
 }
