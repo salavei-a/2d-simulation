@@ -11,13 +11,11 @@ public class InitEntity extends Action {
     @Override
     public WorldMap doAction(WorldMap map) {
         Random random = new Random();
-        int sizeMap = map.getSize();
+        int quantityController = map.getSize() * 3;
 
-        for (int i = 1; i < sizeMap - (sizeMap / 2); i++) {
-            for (int j = 1; j < sizeMap - (sizeMap / 2); j++) {
-                Coordinates coordinates = new Coordinates(random.nextInt(sizeMap) + 1, random.nextInt(sizeMap) + 1);
-                map.getEntities().put(coordinates, new EntityFactory().createEntity(getRandomEntityName(random), coordinates));
-            }
+        for (int i = 1; i <= quantityController; i++) {
+            Coordinates coordinates = new Coordinates(random.nextInt(map.getSize()) + 1, random.nextInt(map.getSize()) + 1);
+            map.getEntities().put(coordinates, new EntityFactory().createEntity(getRandomEntityName(random), coordinates));
         }
 
         return map;
