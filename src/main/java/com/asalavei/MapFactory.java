@@ -1,11 +1,10 @@
 package com.asalavei;
 
-import com.asalavei.model.common.Map;
+import com.asalavei.model.common.WorldMap;
 
 public class MapFactory {
-    private final EntityFactory entityFactory = new EntityFactory();
 
-    public Map createMap(int size) {
-        return Map.create(size);
+    public WorldMap createMap(int size) {
+        return WorldMap.create(size);
     }
 }
