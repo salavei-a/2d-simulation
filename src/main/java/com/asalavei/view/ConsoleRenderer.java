@@ -4,9 +4,10 @@ import com.asalavei.model.common.Coordinates;
 import com.asalavei.model.common.WorldMap;
 import com.asalavei.model.entities.Entity;
 
-public class MapConsoleRenderer implements Renderer {
+public class ConsoleRenderer implements Renderer {
 
-    public void render(WorldMap map, Entity entity) {
+    @Override
+    public void render(WorldMap map, int turnCounter) {
         int mapSize = map.getSize();
 
         for (int row = mapSize; row >= 1; row--) {
@@ -23,11 +24,8 @@ public class MapConsoleRenderer implements Renderer {
 
             System.out.println(line);
         }
-    }
 
-    @Override
-    public void render(WorldMap map) {
-        render(map, null);
+        System.out.println(turnCounter);
     }
 
     private String getEntitySprite(Entity entity) {
