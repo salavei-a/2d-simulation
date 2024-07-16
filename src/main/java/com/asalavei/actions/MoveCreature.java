@@ -2,7 +2,7 @@ package com.asalavei.actions;
 
 import com.asalavei.model.common.WorldMap;
 
-public class TurnAction extends Action {
+public class MoveCreature extends Action {
 
     @Override
     public WorldMap doAction(WorldMap map) {

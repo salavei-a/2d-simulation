@@ -1,37 +1,44 @@
 package com.asalavei;
 
 import com.asalavei.actions.Action;
-import com.asalavei.actions.InitEntity;
 import com.asalavei.model.common.WorldMap;
-import com.asalavei.view.MapConsoleRenderer;
+import com.asalavei.view.ConsoleRenderer;
 import com.asalavei.view.Renderer;
+
+import java.util.Map;
 
 public class Simulation {
     private WorldMap map;
     private int turnCounter;
-    private Action action;
-    private final Renderer renderer = new MapConsoleRenderer();
+    private final Map<String, Action> actions;
 
     public Simulation(WorldMap map) {
         this.map = map;
+        this.actions = ActionFactory.getAction();
     }
 
     public void start() {
-        int end = 0;
-        map = initActions(map);
+        Renderer renderer = new ConsoleRenderer();
 
-        while (end != 1) {
-            renderer.render(map);
-            end++;
+        map = initMap(map);
+        renderer.render(map, turnCounter);
+
+        while (isSimulationActive(turnCounter)) {
+            turnCounter++;
+            renderer.render(map, turnCounter);
         }
     }
 
-    private WorldMap initActions(WorldMap map) {
-        return new InitEntity().doAction(map);
+    private boolean isSimulationActive(int turnCounter) {
+        return turnCounter != 5;
     }
 
-    public void nextTurn() {
-        //TODO
+    private WorldMap initMap(WorldMap map) {
+        return actions.get("initAction").doAction(map);
+    }
+
+    public WorldMap nextTurn(WorldMap map) {
+        return actions.get("moveCreature").doAction(map);
     }
 
     public void pause() {

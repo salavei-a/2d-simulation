@@ -2,7 +2,7 @@ package com.asalavei;
 
 import com.asalavei.actions.Action;
 import com.asalavei.actions.InitAction;
-import com.asalavei.actions.TurnAction;
+import com.asalavei.actions.MoveCreature;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +12,7 @@ public class ActionFactory {
 
     static {
         actions.put("initAction", new InitAction());
-        actions.put("turnAction", new TurnAction());
+        actions.put("moveCreature", new MoveCreature());
     }
 
     private ActionFactory() {
