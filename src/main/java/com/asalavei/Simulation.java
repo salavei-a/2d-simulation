@@ -36,6 +36,8 @@ public class Simulation {
                 break;
             }
 
+            map = nextTurn(map);
+
             turnCounter++;
             renderer.render(map, turnCounter);
         }
