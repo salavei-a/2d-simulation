@@ -6,11 +6,15 @@ import com.asalavei.view.ConsoleRenderer;
 import com.asalavei.view.Renderer;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class Simulation {
     private WorldMap map;
     private int turnCounter;
     private final Map<String, Action> actions;
+
+    private final Logger logger = Logger.getLogger(getClass().getName());
 
     public Simulation(WorldMap map) {
         this.map = map;
@@ -24,6 +28,14 @@ public class Simulation {
         renderer.render(map, turnCounter);
 
         while (isSimulationActive(turnCounter)) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                logger.info("Thread was interrupted. Shutdown");
+                break;
+            }
+
             turnCounter++;
             renderer.render(map, turnCounter);
         }
