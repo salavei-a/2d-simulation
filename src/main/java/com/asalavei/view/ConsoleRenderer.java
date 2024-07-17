@@ -12,10 +12,10 @@ public class ConsoleRenderer implements Renderer {
 
         for (int row = mapSize; row >= 1; row--) {
             String line = "";
-            for (int column = mapSize; column >= 1; column--) {
+            for (int column = 1; column <= mapSize; column++) {
                 Coordinates coordinates = new Coordinates(row, column);
 
-                if (map.isSquareEmpty(coordinates)) {
+                if (map.isPlaceEmpty(coordinates)) {
                     line += "⬛";
                 } else {
                     line += "" + getEntitySprite(map.getEntity(coordinates)) + "";
