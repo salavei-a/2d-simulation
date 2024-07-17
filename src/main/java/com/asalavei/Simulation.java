@@ -34,11 +34,11 @@ public class Simulation {
     }
 
     private WorldMap initMap(WorldMap map) {
-        return actions.get("initAction").doAction(map);
+        return actions.get("InitAction").doAction(map);
     }
 
     public WorldMap nextTurn(WorldMap map) {
-        return actions.get("moveCreature").doAction(map);
+        return actions.get("MoveCreature").doAction(map);
     }
 
     public void pause() {

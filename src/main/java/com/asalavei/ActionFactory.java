@@ -11,8 +11,8 @@ public class ActionFactory {
     private static final Map<String, Action> actions = new HashMap<>();
 
     static {
-        actions.put("initAction", new InitAction());
-        actions.put("moveCreature", new MoveCreature());
+        actions.put(InitAction.class.getSimpleName(), new InitAction());
+        actions.put(MoveCreature.class.getSimpleName(), new MoveCreature());
     }
 
     private ActionFactory() {
