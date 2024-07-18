@@ -15,7 +15,7 @@ public class InitAction extends Action {
 
         for (int i = 1; i <= quantityController; i++) {
             Coordinates coordinates = new Coordinates(random.nextInt(map.getSize()) + 1, random.nextInt(map.getSize()) + 1);
-            map.getEntities().put(coordinates, new EntityFactory().createEntity(getRandomEntityName(random), coordinates));
+            map.setEntity(coordinates, new EntityFactory().createEntity(getRandomEntityName(random), coordinates));
         }
 
         return map;
