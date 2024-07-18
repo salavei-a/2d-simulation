@@ -3,10 +3,7 @@ package com.asalavei.model.common;
 import com.asalavei.model.entities.Entity;
 import com.asalavei.model.entities.creatures.Creature;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.*;
 
 public class WorldMap {
     private final int size;
@@ -33,9 +30,6 @@ public class WorldMap {
         this.entities.putAll(entities);
     }
 
-    public static WorldMap create(int size) {
-        return new WorldMap(size);
-    }
 
     public void setEntity(Coordinates coordinates, Entity entity) {
         if (entity instanceof Creature creature) {
@@ -45,17 +39,22 @@ public class WorldMap {
         entities.put(coordinates, entity);
     }
 
-    public Coordinates getPlaceToMove(Creature creature) {
-        int speed = creature.getSpeed();
-        Set<Coordinates> checkedCoordinates = new HashSet<>();
-        int attempts = 0;
+    public static WorldMap create(int size) {
+        return new WorldMap(size);
+    }
 
-        if (speed == 1) {
-            attempts = 9;
-        }
+    public void removeEntity(Coordinates coordinates) {
+        this.entities.remove(coordinates);
+    }
+
+    public Coordinates getPlaceToMove(Creature creature) {
+        Random random = new Random();
+        List<Coordinates> availableCoordinates = creature.getAvailableMovePlaces(creature.getSpeed());
+        int attempts = availableCoordinates.size();
+        Set<Coordinates> checkedCoordinates = new HashSet<>();
 
         while (checkedCoordinates.size() < attempts) {
-            Coordinates coordinates = creature.getRandomAvailablePlace(speed);
+            Coordinates coordinates = availableCoordinates.get(random.nextInt(availableCoordinates.size()));
 
             if (isPlaceEmpty(coordinates) && isPlaceAvailableToMove(coordinates)) {
                 return coordinates;
