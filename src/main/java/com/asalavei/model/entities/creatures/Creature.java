@@ -1,6 +1,7 @@
 package com.asalavei.model.entities.creatures;
 
 import com.asalavei.model.common.Coordinates;
+import com.asalavei.model.common.WorldMap;
 import com.asalavei.model.entities.Entity;
 
 import java.util.*;
@@ -28,7 +29,7 @@ public abstract class Creature extends Entity {
         this.coordinates = coordinates;
     }
 
-    protected abstract void makeMove();
+    public abstract void makeMove(WorldMap map);
 
     public List<Coordinates> getAvailableMovePlaces(int speed) {
         int row = coordinates.getRow();

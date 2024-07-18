@@ -16,11 +16,7 @@ public class MoveCreature extends Action {
 
         for (Map.Entry<Coordinates, Entity> entity : entities.entrySet()) {
             if (entity.getValue() instanceof Creature creature) {
-                Coordinates coordinates = map.getPlaceToMove(creature);
-
-                map.removeEntity(creature.getCoordinates());
-                map.setEntity(coordinates, creature);
-                creature.setCoordinates(coordinates);
+                creature.makeMove(map);
             }
         }
 

@@ -1,6 +1,7 @@
 package com.asalavei.model.entities.creatures;
 
 import com.asalavei.model.common.Coordinates;
+import com.asalavei.model.common.WorldMap;
 
 public class Predator extends Creature {
     private int attackDamage;
@@ -10,12 +11,16 @@ public class Predator extends Creature {
         this.attackDamage = 5;
     }
 
-    public void attack() {
-        // TODO
+    @Override
+    public void makeMove(WorldMap map) {
+        Coordinates coordinates = map.getPlaceToMove(this);
+
+        map.removeEntity(this.getCoordinates());
+        map.setEntity(coordinates, this);
+        this.setCoordinates(coordinates);
     }
 
-    @Override
-    public void makeMove() {
+    public void attack() {
         // TODO
     }
 }
