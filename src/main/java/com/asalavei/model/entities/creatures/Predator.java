@@ -2,6 +2,9 @@ package com.asalavei.model.entities.creatures;
 
 import com.asalavei.model.common.Coordinates;
 import com.asalavei.model.common.WorldMap;
+import com.asalavei.model.entities.Entity;
+
+import java.util.List;
 
 public class Predator extends Creature {
     private int attackDamage;
@@ -13,10 +16,19 @@ public class Predator extends Creature {
 
     @Override
     public void makeMove(WorldMap map) {
-        moveToEntity(map);
+        List<Entity> herbivoreNearby = map.getEntitiesNearby(coordinates, this).values()
+                .stream()
+                .filter(entity -> entity instanceof Herbivore)
+                .toList();
+
+        if (!herbivoreNearby.isEmpty()) {
+            attack(herbivoreNearby.getFirst());
+        } else {
+            moveToEntity(map);
+        }
     }
 
-    public void attack() {
+    private void attack(Entity entity) {
         // TODO
     }
 }

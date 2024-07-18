@@ -30,7 +30,6 @@ public class WorldMap {
         this.entities.putAll(entities);
     }
 
-
     public void setEntity(Coordinates coordinates, Entity entity) {
         entities.put(coordinates, entity);
     }
@@ -69,5 +68,30 @@ public class WorldMap {
 
     public boolean isPlaceEmpty(Coordinates coordinates) {
         return !entities.containsKey(coordinates);
+    }
+
+    public Map<Coordinates, Entity> getEntitiesNearby(Coordinates coordinates, Entity entity) {
+        int row = coordinates.getRow();
+        int column = coordinates.getColumn();
+
+        Map<Coordinates, Entity> entitiesNearby = new HashMap<>();
+
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                Coordinates adjacentCoordinates = new Coordinates(row + i, column + j);
+
+                if (adjacentCoordinates.equals(coordinates)) {
+                    continue;
+                }
+
+                entitiesNearby.put(adjacentCoordinates, entities.get(adjacentCoordinates));
+            }
+        }
+
+        return entitiesNearby;
+    }
+
+    public boolean isEntitiesNearby(Coordinates coordinates, Entity entity) {
+        return !getEntitiesNearby(coordinates, entity).isEmpty();
     }
 }

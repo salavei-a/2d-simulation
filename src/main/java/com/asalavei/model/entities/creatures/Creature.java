@@ -9,7 +9,7 @@ import java.util.*;
 public abstract class Creature extends Entity {
     private final int speed;
     private int hP;
-    private Coordinates coordinates;
+    protected Coordinates coordinates;
 
     protected Creature(Coordinates coordinates) {
         this.coordinates = coordinates;
