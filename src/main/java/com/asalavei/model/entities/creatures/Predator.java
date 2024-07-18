@@ -13,11 +13,7 @@ public class Predator extends Creature {
 
     @Override
     public void makeMove(WorldMap map) {
-        Coordinates coordinates = map.getPlaceToMove(this);
-
-        map.removeEntity(this.getCoordinates());
-        map.setEntity(coordinates, this);
-        this.setCoordinates(coordinates);
+        moveToEntity(map);
     }
 
     public void attack() {

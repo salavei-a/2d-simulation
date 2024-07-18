@@ -32,10 +32,6 @@ public class WorldMap {
 
 
     public void setEntity(Coordinates coordinates, Entity entity) {
-        if (entity instanceof Creature creature) {
-            creature.setCoordinates(coordinates);
-        }
-
         entities.put(coordinates, entity);
     }
 

@@ -7,7 +7,7 @@ import com.asalavei.model.entities.Entity;
 import java.util.*;
 
 public abstract class Creature extends Entity {
-    private int speed;
+    private final int speed;
     private int hP;
     private Coordinates coordinates;
 
@@ -31,14 +31,22 @@ public abstract class Creature extends Entity {
 
     public abstract void makeMove(WorldMap map);
 
+    protected void moveToEntity(WorldMap map) {
+        Coordinates newCoordinates = map.getPlaceToMove(this);
+
+        map.removeEntity(coordinates);
+        map.setEntity(newCoordinates, this);
+        coordinates = newCoordinates;
+    }
+
     public List<Coordinates> getAvailableMovePlaces(int speed) {
         int row = coordinates.getRow();
         int column = coordinates.getColumn();
-        
+
         List<Coordinates> availableCoordinates = new ArrayList<>();
 
-        for (int i = -speed; i <= speed ; i++) {
-            for (int j = -speed; j <= speed ; j++) {
+        for (int i = -speed; i <= speed; i++) {
+            for (int j = -speed; j <= speed; j++) {
                 availableCoordinates.add(new Coordinates(row + i, column + j));
             }
         }
