@@ -11,14 +11,14 @@ public class ConsoleRenderer implements Renderer {
         int mapSize = map.getSize();
 
         for (int row = mapSize; row >= 1; row--) {
-            String line = "";
+            StringBuilder line = new StringBuilder();
             for (int column = 1; column <= mapSize; column++) {
                 Coordinates coordinates = new Coordinates(row, column);
 
                 if (map.isPlaceEmpty(coordinates)) {
-                    line += "⬛";
+                    line.append("⬛");
                 } else {
-                    line += "" + getEntitySprite(map.getEntity(coordinates)) + "";
+                    line.append(getEntitySprite(map.getEntity(coordinates)));
                 }
             }
 
