@@ -27,7 +27,7 @@ public class Simulation {
         map = initMap(map);
         renderer.render(map, turnCounter);
 
-        while (isSimulationActive(turnCounter)) {
+        while (isSimulationActive()) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
@@ -43,8 +43,8 @@ public class Simulation {
         }
     }
 
-    private boolean isSimulationActive(int turnCounter) {
-        return turnCounter != 5;
+    private boolean isSimulationActive() {
+        return map.isHerbivoresAlive();
     }
 
     private WorldMap initMap(WorldMap map) {
