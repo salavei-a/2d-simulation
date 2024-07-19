@@ -40,7 +40,7 @@ public class WorldMap {
     }
 
     public void removeEntity(Coordinates coordinates) {
-        this.entities.remove(coordinates);
+        entities.remove(coordinates);
     }
 
     public Coordinates getPlaceToMove(Creature creature) {
