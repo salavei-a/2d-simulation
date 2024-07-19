@@ -71,7 +71,7 @@ public class WorldMap {
         return !entities.containsKey(coordinates);
     }
 
-    public Map<Coordinates, Entity> getEntitiesNearby(Coordinates coordinates, Entity entity) {
+    public Map<Coordinates, Entity> getEntitiesNearby(Coordinates coordinates) {
         int row = coordinates.getRow();
         int column = coordinates.getColumn();
 
@@ -93,7 +93,7 @@ public class WorldMap {
     }
 
     public boolean isEntitiesNearby(Coordinates coordinates, Entity entity) {
-        return !getEntitiesNearby(coordinates, entity).isEmpty();
+        return !getEntitiesNearby(coordinates).isEmpty();
     }
 
     public boolean isHerbivoresAlive() {

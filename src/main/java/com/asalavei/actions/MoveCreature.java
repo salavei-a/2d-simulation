@@ -17,6 +17,10 @@ public class MoveCreature extends Action {
         for (Map.Entry<Coordinates, Entity> entity : entities.entrySet()) {
             if (entity.getValue() instanceof Creature creature) {
                 creature.makeMove(map);
+
+                if (creature.isDead()) {
+                    map.removeEntity(creature.getCoordinates());
+                }
             }
         }
 

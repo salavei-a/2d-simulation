@@ -16,7 +16,7 @@ public class Predator extends Creature {
 
     @Override
     public void makeMove(WorldMap map) {
-        List<Entity> herbivoreNearby = map.getEntitiesNearby(coordinates, this).values()
+        List<Entity> herbivoreNearby = map.getEntitiesNearby(coordinates).values()
                 .stream()
                 .filter(entity -> entity instanceof Herbivore)
                 .toList();
@@ -29,6 +29,8 @@ public class Predator extends Creature {
     }
 
     private void attack(Entity entity) {
-        // TODO
+        if (entity instanceof Herbivore herbivore) {
+            herbivore.hP -= attackDamage;
+        }
     }
 }
