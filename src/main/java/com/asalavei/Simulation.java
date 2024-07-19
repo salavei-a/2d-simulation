@@ -37,7 +37,6 @@ public class Simulation {
             }
 
             map = nextTurn(map);
-
             turnCounter++;
             renderer.render(map, turnCounter);
         }
@@ -52,7 +51,10 @@ public class Simulation {
     }
 
     public WorldMap nextTurn(WorldMap map) {
-        return actions.get("MoveCreature").doAction(map);
+        map = actions.get("MoveCreature").doAction(map);
+        map = actions.get("SpawnResource").doAction(map);
+
+        return map;
     }
 
     public void pause() {

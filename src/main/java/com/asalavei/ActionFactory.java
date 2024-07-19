@@ -3,6 +3,7 @@ package com.asalavei;
 import com.asalavei.actions.Action;
 import com.asalavei.actions.InitAction;
 import com.asalavei.actions.MoveCreature;
+import com.asalavei.actions.SpawnResource;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +14,7 @@ public class ActionFactory {
     static {
         actions.put(InitAction.class.getSimpleName(), new InitAction());
         actions.put(MoveCreature.class.getSimpleName(), new MoveCreature());
+        actions.put(SpawnResource.class.getSimpleName(), new SpawnResource());
     }
 
     private ActionFactory() {

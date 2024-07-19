@@ -2,6 +2,8 @@ package com.asalavei.model.common;
 
 import java.util.Objects;
 
+import static com.asalavei.Main.RANDOM;
+
 public class Coordinates {
     private final Integer row;
     private final Integer column;
@@ -17,6 +19,10 @@ public class Coordinates {
 
     public Integer getColumn() {
         return column;
+    }
+
+    public static Coordinates getRandomCoordinates(WorldMap map) {
+        return new Coordinates(RANDOM.nextInt(map.getSize()) + 1, RANDOM.nextInt(map.getSize()) + 1);
     }
 
     @Override
