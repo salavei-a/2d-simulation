@@ -8,7 +8,7 @@ import java.util.*;
 
 public abstract class Creature extends Entity {
     private final int speed;
-    private int hP;
+    protected int hP;
     protected Coordinates coordinates;
 
     protected Creature(Coordinates coordinates) {
@@ -52,5 +52,9 @@ public abstract class Creature extends Entity {
         }
 
         return availableCoordinates;
+    }
+
+    public boolean isDead() {
+        return this.hP <= 0;
     }
 }
