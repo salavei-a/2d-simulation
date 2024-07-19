@@ -2,6 +2,7 @@ package com.asalavei.model.common;
 
 import com.asalavei.model.entities.Entity;
 import com.asalavei.model.entities.creatures.Creature;
+import com.asalavei.model.entities.creatures.Herbivore;
 
 import java.util.*;
 
@@ -93,5 +94,15 @@ public class WorldMap {
 
     public boolean isEntitiesNearby(Coordinates coordinates, Entity entity) {
         return !getEntitiesNearby(coordinates, entity).isEmpty();
+    }
+
+    public boolean isHerbivoresAlive() {
+        for (Entity entity : entities.values()) {
+            if (entity instanceof Herbivore) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
