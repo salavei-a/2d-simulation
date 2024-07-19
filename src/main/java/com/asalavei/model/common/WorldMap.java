@@ -6,6 +6,8 @@ import com.asalavei.model.entities.creatures.Herbivore;
 
 import java.util.*;
 
+import static com.asalavei.Main.RANDOM;
+
 public class WorldMap {
     private final int size;
     private Map<Coordinates, Entity> entities = new HashMap<>();
@@ -44,13 +46,12 @@ public class WorldMap {
     }
 
     public Coordinates getPlaceToMove(Creature creature) {
-        Random random = new Random();
         List<Coordinates> availableCoordinates = creature.getAvailableMovePlaces(creature.getSpeed());
         int attempts = availableCoordinates.size();
         Set<Coordinates> checkedCoordinates = new HashSet<>();
 
         while (checkedCoordinates.size() < attempts) {
-            Coordinates coordinates = availableCoordinates.get(random.nextInt(availableCoordinates.size()));
+            Coordinates coordinates = availableCoordinates.get(RANDOM.nextInt(availableCoordinates.size()));
 
             if (isPlaceEmpty(coordinates) && isPlaceAvailableToMove(coordinates)) {
                 return coordinates;
