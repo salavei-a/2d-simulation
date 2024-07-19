@@ -3,6 +3,7 @@ package com.asalavei.actions;
 import com.asalavei.EntityFactory;
 import com.asalavei.model.common.Coordinates;
 import com.asalavei.model.common.WorldMap;
+import com.asalavei.model.entities.Entities;
 
 public class SpawnResource extends Action {
 
@@ -11,7 +12,7 @@ public class SpawnResource extends Action {
         Coordinates coordinates = Coordinates.getRandomCoordinates(map);
 
         if (map.isPlaceEmpty(coordinates)) {
-            map.setEntity(coordinates, new EntityFactory().createEntity("Grass", coordinates));
+            map.setEntity(coordinates, new EntityFactory().createEntity(Entities.GRASS, coordinates));
         }
 
         return map;

@@ -2,52 +2,30 @@ package com.asalavei.view;
 
 import com.asalavei.model.common.Coordinates;
 import com.asalavei.model.common.WorldMap;
-import com.asalavei.model.entities.Entity;
+import com.asalavei.model.entities.Entities;
 
 public class ConsoleRenderer implements Renderer {
 
     @Override
     public void render(WorldMap map, int turnCounter) {
         int mapSize = map.getSize();
+        StringBuilder line = new StringBuilder();
 
         for (int row = mapSize; row >= 1; row--) {
-            StringBuilder line = new StringBuilder();
             for (int column = 1; column <= mapSize; column++) {
                 Coordinates coordinates = new Coordinates(row, column);
 
                 if (map.isPlaceEmpty(coordinates)) {
-                    line.append("⬛");
+                    line.append(Entities.NO_ENTITY.getSprite());
                 } else {
-                    line.append(getEntitySprite(map.getEntity(coordinates)));
+                    line.append(Entities.getEntitySprite(map.getEntity(coordinates)));
                 }
             }
 
             System.out.println(line);
+            line.setLength(0);
         }
 
         System.out.println(turnCounter);
-    }
-
-    private String getEntitySprite(Entity entity) {
-        return selectUnicodeSpriteForEntity(entity);
-    }
-
-    private String selectUnicodeSpriteForEntity(Entity entity) {
-        switch (entity.getClass().getSimpleName()) {
-            case "Predator":
-                return "🦁";
-
-            case "Herbivore":
-                return "🐐";
-
-            case "Rock":
-                return "🪨";
-
-            case "Grass":
-                return "🌿";
-
-            default:
-                throw new IllegalArgumentException(("Unknown entity: " + entity));
-        }
     }
 }
