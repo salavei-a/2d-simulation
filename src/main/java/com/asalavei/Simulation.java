@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 
 public class Simulation {
     private WorldMap map;
-    private int turnCounter;
     private final Map<String, Action> actions;
 
     private final Logger logger = Logger.getLogger(getClass().getName());
@@ -23,6 +22,7 @@ public class Simulation {
 
     public void start() {
         Renderer renderer = new ConsoleRenderer();
+        int turnCounter = 0;
 
         map = initMap(map);
         renderer.render(map, turnCounter);
