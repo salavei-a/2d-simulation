@@ -2,6 +2,7 @@ package com.asalavei.model.entities.creatures;
 
 import com.asalavei.model.common.Coordinates;
 import com.asalavei.model.common.WorldMap;
+import com.asalavei.model.entities.Entities;
 import com.asalavei.model.entities.environment.Resource;
 
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
 public class Herbivore extends Creature {
 
     public Herbivore(Coordinates coordinates) {
-        super(coordinates);
+        super(coordinates, Entities.HERBIVORE);
     }
 
     @Override

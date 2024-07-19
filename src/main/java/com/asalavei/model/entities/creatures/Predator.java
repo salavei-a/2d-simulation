@@ -2,6 +2,7 @@ package com.asalavei.model.entities.creatures;
 
 import com.asalavei.model.common.Coordinates;
 import com.asalavei.model.common.WorldMap;
+import com.asalavei.model.entities.Entities;
 import com.asalavei.model.entities.Entity;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public class Predator extends Creature {
     private int attackDamage;
 
     public Predator(Coordinates coordinates) {
-        super(coordinates);
+        super(coordinates, Entities.PREDATOR);
         this.attackDamage = 5;
     }
 

@@ -8,6 +8,7 @@ import com.asalavei.model.entities.environment.Grass;
 import com.asalavei.model.entities.environment.Rock;
 
 import com.asalavei.model.entities.Entities;
+import com.asalavei.model.entities.environment.Tree;
 
 public class EntityFactory {
 
@@ -24,6 +25,9 @@ public class EntityFactory {
 
             case GRASS:
                 return new Grass();
+
+            case TREE:
+                return new Tree();
 
             default:
                 throw new IllegalArgumentException("Unknown entity: " + entities);

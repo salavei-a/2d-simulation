@@ -7,6 +7,7 @@ public enum Entities {
     HERBIVORE("🐐"),
     ROCK("🪨"),
     GRASS("🌿"),
+    TREE("🌴"),
     NO_ENTITY("⬛");
 
     private final String sprite;
@@ -19,7 +20,7 @@ public enum Entities {
         return sprite;
     }
 
-    public static Entities getRandomEntity() {
+    public static Entities getRandomEntityType() {
         Entities entities;
 
         do {
@@ -28,9 +29,5 @@ public enum Entities {
         while (entities == NO_ENTITY);
 
         return entities;
-    }
-
-    public static String getEntitySprite(Entity entity) {
-        return Entities.valueOf(entity.getClass().getSimpleName().toUpperCase()).getSprite();
     }
 }

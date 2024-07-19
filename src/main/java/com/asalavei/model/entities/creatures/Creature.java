@@ -2,6 +2,7 @@ package com.asalavei.model.entities.creatures;
 
 import com.asalavei.model.common.Coordinates;
 import com.asalavei.model.common.WorldMap;
+import com.asalavei.model.entities.Entities;
 import com.asalavei.model.entities.Entity;
 
 import java.util.*;
@@ -11,7 +12,8 @@ public abstract class Creature extends Entity {
     private int hP;
     protected Coordinates coordinates;
 
-    protected Creature(Coordinates coordinates) {
+    protected Creature(Coordinates coordinates, Entities entityType) {
+        super(entityType);
         this.coordinates = coordinates;
         this.speed = 1;
         this.hP = 50;
