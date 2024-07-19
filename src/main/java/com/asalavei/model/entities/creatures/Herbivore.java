@@ -31,5 +31,6 @@ public class Herbivore extends Creature {
 
     private void eat(Set<Coordinates> coordinates, WorldMap map) {
         map.removeEntity(coordinates.iterator().next());
+        increaseHP(5);
     }
 }

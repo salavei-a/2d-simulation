@@ -8,7 +8,7 @@ import java.util.*;
 
 public abstract class Creature extends Entity {
     private final int speed;
-    protected int hP;
+    private int hP;
     protected Coordinates coordinates;
 
     protected Creature(Coordinates coordinates) {
@@ -27,6 +27,14 @@ public abstract class Creature extends Entity {
 
     public void setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
+    }
+
+    protected void increaseHP(int hP) {
+        this.hP += hP;
+    }
+
+    protected void decreaseHP(int hP) {
+        this.hP -= hP;
     }
 
     public abstract void makeMove(WorldMap map);

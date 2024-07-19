@@ -30,7 +30,7 @@ public class Predator extends Creature {
 
     private void attack(Entity entity) {
         if (entity instanceof Herbivore herbivore) {
-            herbivore.hP -= attackDamage;
+            herbivore.decreaseHP(attackDamage);
         }
     }
 }
