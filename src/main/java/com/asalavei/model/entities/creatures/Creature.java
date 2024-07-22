@@ -33,6 +33,10 @@ public abstract class Creature extends Entity {
 
     protected void increaseHP(int hP) {
         this.hP += hP;
+
+        if (this.hP >= 100) {
+            this.hP = 100;
+        }
     }
 
     protected void decreaseHP(int hP) {
