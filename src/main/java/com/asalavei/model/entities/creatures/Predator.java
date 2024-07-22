@@ -5,7 +5,8 @@ import com.asalavei.model.common.WorldMap;
 import com.asalavei.model.entities.Entities;
 import com.asalavei.model.entities.Entity;
 
-import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Predator extends Creature {
     private int attackDamage;
@@ -17,13 +18,13 @@ public class Predator extends Creature {
 
     @Override
     public void makeMove(WorldMap map) {
-        List<Entity> herbivoreNearby = map.getEntitiesNearby(coordinates).values()
+        Set<Entity> herbivoreNearby = map.getEntitiesNearby(coordinates).values()
                 .stream()
                 .filter(entity -> entity instanceof Herbivore)
-                .toList();
+                .collect(Collectors.toSet());
 
         if (!herbivoreNearby.isEmpty()) {
-            attack(herbivoreNearby.getFirst());
+            attack(herbivoreNearby.iterator().next());
         } else {
             moveToEntity(map);
         }
