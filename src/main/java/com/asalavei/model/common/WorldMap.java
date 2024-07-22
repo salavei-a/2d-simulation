@@ -1,12 +1,9 @@
 package com.asalavei.model.common;
 
 import com.asalavei.model.entities.Entity;
-import com.asalavei.model.entities.creatures.Creature;
 import com.asalavei.model.entities.creatures.Herbivore;
 
 import java.util.*;
-
-import static com.asalavei.Main.RANDOM;
 
 public class WorldMap {
     private final int size;
@@ -45,25 +42,7 @@ public class WorldMap {
         entities.remove(coordinates);
     }
 
-    public Coordinates getPlaceToMove(Creature creature) {
-        List<Coordinates> availableCoordinates = creature.getAvailableMovePlaces(creature.getSpeed());
-        int attempts = availableCoordinates.size();
-        Set<Coordinates> checkedCoordinates = new HashSet<>();
-
-        while (checkedCoordinates.size() < attempts) {
-            Coordinates coordinates = availableCoordinates.get(RANDOM.nextInt(availableCoordinates.size()));
-
-            if (isPlaceEmpty(coordinates) && isPlaceAvailableToMove(coordinates)) {
-                return coordinates;
-            }
-
-            checkedCoordinates.add(coordinates);
-        }
-
-        return creature.getCoordinates();
-    }
-
-    private boolean isPlaceAvailableToMove(Coordinates coordinates) {
+    public boolean isValidCoordinates(Coordinates coordinates) {
         return coordinates.getRow() <= size && coordinates.getRow() >= 1 &&
                 coordinates.getColumn() <= size && coordinates.getColumn() >= 1;
     }
@@ -93,7 +72,7 @@ public class WorldMap {
         return entitiesNearby;
     }
 
-    public boolean isEntitiesNearby(Coordinates coordinates, Entity entity) {
+    public boolean isEntitiesNearby(Coordinates coordinates) {
         return !getEntitiesNearby(coordinates).isEmpty();
     }
 

@@ -1,11 +1,10 @@
 package com.asalavei.model.entities.creatures;
 
+import com.asalavei.PathFinder;
 import com.asalavei.model.common.Coordinates;
 import com.asalavei.model.common.WorldMap;
 import com.asalavei.model.entities.Entities;
 import com.asalavei.model.entities.Entity;
-
-import java.util.*;
 
 public abstract class Creature extends Entity {
     private final int speed;
@@ -46,26 +45,11 @@ public abstract class Creature extends Entity {
     public abstract void makeMove(WorldMap map);
 
     protected void moveToEntity(WorldMap map) {
-        Coordinates newCoordinates = map.getPlaceToMove(this);
+        Coordinates newCoordinates = PathFinder.getPlaceToMove(this, map);
 
         map.removeEntity(coordinates);
         map.setEntity(newCoordinates, this);
         coordinates = newCoordinates;
-    }
-
-    public List<Coordinates> getAvailableMovePlaces(int speed) {
-        int row = coordinates.getRow();
-        int column = coordinates.getColumn();
-
-        List<Coordinates> availableCoordinates = new ArrayList<>();
-
-        for (int i = -speed; i <= speed; i++) {
-            for (int j = -speed; j <= speed; j++) {
-                availableCoordinates.add(new Coordinates(row + i, column + j));
-            }
-        }
-
-        return availableCoordinates;
     }
 
     public boolean isDead() {
