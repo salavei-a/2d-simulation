@@ -1,5 +1,6 @@
 package com.asalavei.view;
 
+import com.asalavei.CoordinatesFactory;
 import com.asalavei.model.common.Coordinates;
 import com.asalavei.model.common.WorldMap;
 import com.asalavei.model.entities.Entities;
@@ -14,7 +15,7 @@ public class ConsoleRenderer implements Renderer {
 
         for (int row = mapSize; row >= 1; row--) {
             for (int column = 1; column <= mapSize; column++) {
-                Coordinates coordinates = new Coordinates(row, column);
+                Coordinates coordinates = CoordinatesFactory.createCoordinates(row, column);
                 Entity entity = map.getEntity(coordinates);
 
                 if (map.isPlaceEmpty(coordinates)) {

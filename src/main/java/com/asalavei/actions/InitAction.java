@@ -1,5 +1,6 @@
 package com.asalavei.actions;
 
+import com.asalavei.CoordinatesFactory;
 import com.asalavei.EntityFactory;
 import com.asalavei.model.common.Coordinates;
 import com.asalavei.model.common.WorldMap;
@@ -12,7 +13,7 @@ public class InitAction extends Action {
         int quantityController = map.getSize() * 3;
 
         for (int i = 1; i <= quantityController; i++) {
-            Coordinates coordinates = Coordinates.getRandomCoordinates(map);
+            Coordinates coordinates = CoordinatesFactory.getRandomCoordinates(map);
             map.setEntity(coordinates, new EntityFactory().createEntity(Entities.getRandomEntityType(), coordinates));
         }
 

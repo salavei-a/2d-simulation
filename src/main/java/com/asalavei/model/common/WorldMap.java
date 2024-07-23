@@ -1,5 +1,6 @@
 package com.asalavei.model.common;
 
+import com.asalavei.CoordinatesFactory;
 import com.asalavei.model.entities.Entity;
 import com.asalavei.model.entities.creatures.Herbivore;
 
@@ -47,6 +48,11 @@ public class WorldMap {
                 coordinates.getColumn() <= size && coordinates.getColumn() >= 1;
     }
 
+
+    public boolean isValidCoordinates(Integer row, Integer column) {
+        return row <= size && row >= 1 && column <= size && column >= 1;
+    }
+
     public boolean isPlaceEmpty(Coordinates coordinates) {
         return !entities.containsKey(coordinates);
     }
@@ -59,7 +65,7 @@ public class WorldMap {
 
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                Coordinates adjacentCoordinates = new Coordinates(row + i, column + j);
+                Coordinates adjacentCoordinates = CoordinatesFactory.createCoordinates(row + i, column + j);
 
                 if (adjacentCoordinates.equals(coordinates)) {
                     continue;

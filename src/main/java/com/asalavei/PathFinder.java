@@ -4,10 +4,7 @@ import com.asalavei.model.common.Coordinates;
 import com.asalavei.model.common.WorldMap;
 import com.asalavei.model.entities.creatures.Creature;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static com.asalavei.Main.RANDOM;
 
@@ -45,7 +42,7 @@ public class PathFinder {
         for (int i = -speed; i <= speed; i++) {
             for (int j = -speed; j <= speed; j++) {
 
-                availableCoordinates.add(new Coordinates(row + i, column + j));
+                availableCoordinates.add(CoordinatesFactory.createCoordinates(row + i, column + j));
             }
         }
 

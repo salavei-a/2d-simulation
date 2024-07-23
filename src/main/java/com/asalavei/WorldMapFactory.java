@@ -4,7 +4,10 @@ import com.asalavei.model.common.WorldMap;
 
 public class WorldMapFactory {
 
-    public WorldMap createMap(int size) {
+    private WorldMapFactory() {
+    }
+
+    public static WorldMap createMap(int size) {
         return WorldMap.create(size);
     }
 }
