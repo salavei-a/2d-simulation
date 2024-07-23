@@ -43,7 +43,7 @@ public class WorldMap {
         entities.remove(coordinates);
     }
 
-    public boolean isValidCoordinates(int row, int column) {
+    public boolean isWithinMapBounds(int row, int column) {
         return row <= size && row >= 1 && column <= size && column >= 1;
     }
 
@@ -64,7 +64,7 @@ public class WorldMap {
                 int newRow = row + i;
                 int newColumn = column + j;
 
-                if (isValidCoordinates(newRow, newColumn)) {
+                if (isWithinMapBounds(newRow, newColumn)) {
                     Coordinates adjacentCoordinates = CoordinatesFactory.createCoordinates(newRow, newColumn);
 
                     entitiesNearby.put(adjacentCoordinates, entities.get(adjacentCoordinates));

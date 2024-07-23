@@ -1,7 +1,6 @@
 package com.asalavei;
 
 import com.asalavei.model.common.Coordinates;
-import com.asalavei.model.common.WorldMap;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +22,7 @@ public class CoordinatesFactory {
         return row + "," + column;
     }
 
-    public static Coordinates getRandomCoordinates(WorldMap map) {
-        return createCoordinates(RANDOM.nextInt(map.getSize()) + 1, RANDOM.nextInt(map.getSize()) + 1);
+    public static Coordinates getRandomCoordinates(int mapSize) {
+        return createCoordinates(RANDOM.nextInt(mapSize) + 1, RANDOM.nextInt(mapSize) + 1);
     }
 }
