@@ -43,12 +43,6 @@ public class WorldMap {
         entities.remove(coordinates);
     }
 
-    public boolean isValidCoordinates(Coordinates coordinates) {
-        return coordinates.getRow() <= size && coordinates.getRow() >= 1 &&
-                coordinates.getColumn() <= size && coordinates.getColumn() >= 1;
-    }
-
-
     public boolean isValidCoordinates(int row, int column) {
         return row <= size && row >= 1 && column <= size && column >= 1;
     }
@@ -65,13 +59,16 @@ public class WorldMap {
 
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                Coordinates adjacentCoordinates = CoordinatesFactory.createCoordinates(row + i, column + j);
+                if (i == 0 && j == 0) continue;
 
-                if (adjacentCoordinates.equals(coordinates)) {
-                    continue;
+                int newRow = row + i;
+                int newColumn = column + j;
+
+                if (isValidCoordinates(newRow, newColumn)) {
+                    Coordinates adjacentCoordinates = CoordinatesFactory.createCoordinates(newRow, newColumn);
+
+                    entitiesNearby.put(adjacentCoordinates, entities.get(adjacentCoordinates));
                 }
-
-                entitiesNearby.put(adjacentCoordinates, entities.get(adjacentCoordinates));
             }
         }
 
