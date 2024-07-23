@@ -49,7 +49,7 @@ public class WorldMap {
     }
 
 
-    public boolean isValidCoordinates(Integer row, Integer column) {
+    public boolean isValidCoordinates(int row, int column) {
         return row <= size && row >= 1 && column <= size && column >= 1;
     }
 

@@ -3,23 +3,23 @@ package com.asalavei.model.common;
 import java.util.Objects;
 
 public class Coordinates {
-    private final Integer row;
-    private final Integer column;
+    private final int row;
+    private final int column;
 
-    private Coordinates(Integer row, Integer column) {
+    private Coordinates(int row, int column) {
         this.row = row;
         this.column = column;
     }
 
-    public Integer getRow() {
+    public int getRow() {
         return row;
     }
 
-    public Integer getColumn() {
+    public int getColumn() {
         return column;
     }
 
-    public static Coordinates create(Integer row, Integer column) {
+    public static Coordinates create(int row, int column) {
         return new Coordinates(row, column);
     }
 

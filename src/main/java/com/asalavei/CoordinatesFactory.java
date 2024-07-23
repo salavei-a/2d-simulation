@@ -14,7 +14,7 @@ public class CoordinatesFactory {
     private CoordinatesFactory() {
     }
 
-    public static Coordinates createCoordinates(Integer row, Integer column) {
+    public static Coordinates createCoordinates(int row, int column) {
         String key = generateKey(row, column);
         Coordinates coordinates = pool.get(key);
 
@@ -26,7 +26,7 @@ public class CoordinatesFactory {
         return coordinates;
     }
 
-    private static String generateKey(Integer row, Integer column) {
+    private static String generateKey(int row, int column) {
         return row + "," + column;
     }
 
