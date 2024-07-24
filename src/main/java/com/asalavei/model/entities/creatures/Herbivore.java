@@ -6,7 +6,7 @@ import com.asalavei.model.entities.Entities;
 import com.asalavei.model.entities.environment.Resource;
 
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 public class Herbivore extends Creature {
 
@@ -16,17 +16,14 @@ public class Herbivore extends Creature {
 
     @Override
     public void makeMove(WorldMap map) {
-        Map<Coordinates, Resource> resourcesNearby = map.getEntitiesNearby(coordinates).entrySet()
+        Optional<Map.Entry<Coordinates, Resource>> resourceNearby = map.getEntitiesNearby(coordinates).entrySet()
                 .stream()
                 .filter(entry -> entry.getValue() instanceof Resource)
-                .collect(Collectors.toMap(Map.Entry::getKey, entry -> (Resource) entry.getValue()));
+                .map(entry -> Map.entry(entry.getKey(), (Resource) entry.getValue()))
+                .findFirst();
 
-        if (!resourcesNearby.isEmpty()) {
-            Map.Entry<Coordinates, Resource> resourceToConsume = resourcesNearby.entrySet().iterator().next();
-            eat(resourceToConsume.getKey(), resourceToConsume.getValue(), map);
-        } else {
-            moveToEntity(map);
-        }
+        resourceNearby.ifPresentOrElse(resourceToConsume -> eat(resourceToConsume.getKey(), resourceToConsume.getValue(), map),
+                () -> moveToEntity(map));
     }
 
     private void eat(Coordinates coordinates, Resource resource, WorldMap map) {
