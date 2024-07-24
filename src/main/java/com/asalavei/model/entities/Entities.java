@@ -8,6 +8,7 @@ public enum Entities {
     ROCK("🪨"),
     GRASS("🌿"),
     TREE("🌴"),
+    FLOWER("🌷"),
     NO_ENTITY("⬛");
 
     private final String sprite;
