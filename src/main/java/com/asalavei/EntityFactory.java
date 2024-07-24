@@ -11,14 +11,14 @@ import com.asalavei.model.entities.Entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.asalavei.Main.RANDOM;
+import static com.asalavei.Main.random;
 
 public class EntityFactory {
-    private static final List<Entity> RESOURCES = new ArrayList<>();
+    private static final List<Entity> resources = new ArrayList<>();
 
     static {
-        RESOURCES.add(new Grass());
-        RESOURCES.add(new Flower());
+        resources.add(new Grass());
+        resources.add(new Flower());
     }
 
     public Entity createEntity(Entities entities, Coordinates coordinates) {
@@ -34,6 +34,6 @@ public class EntityFactory {
     }
 
     public Entity createResource() {
-        return RESOURCES.get(RANDOM.nextInt(RESOURCES.size()));
+        return resources.get(random.nextInt(resources.size()));
     }
 }

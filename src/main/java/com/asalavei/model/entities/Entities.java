@@ -1,6 +1,6 @@
 package com.asalavei.model.entities;
 
-import static com.asalavei.Main.RANDOM;
+import static com.asalavei.Main.random;
 
 public enum Entities {
     PREDATOR("🦁"),
@@ -25,7 +25,7 @@ public enum Entities {
         Entities entities;
 
         do {
-            entities = values()[RANDOM.nextInt(values().length)];
+            entities = values()[random.nextInt(values().length)];
         }
         while (entities == NO_ENTITY);
 

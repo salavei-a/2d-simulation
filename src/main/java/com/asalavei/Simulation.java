@@ -5,19 +5,16 @@ import com.asalavei.model.common.WorldMap;
 import com.asalavei.view.ConsoleRenderer;
 import com.asalavei.view.Renderer;
 
-import java.util.Map;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public class Simulation {
     private WorldMap map;
-    private final Map<String, Action> actions;
-
     private final Logger logger = Logger.getLogger(getClass().getName());
 
     public Simulation(WorldMap map) {
         this.map = map;
-        this.actions = ActionFactory.getAction();
     }
 
     public void start() {
@@ -47,12 +44,16 @@ public class Simulation {
     }
 
     private WorldMap initMap(WorldMap map) {
-        return actions.get("InitAction").doAction(map);
+        List<Action> initActions = ActionFactory.getInitActions();
+        return initActions.getFirst().doAction(map);
     }
 
     public WorldMap nextTurn(WorldMap map) {
-        map = actions.get("MoveCreature").doAction(map);
-        map = actions.get("SpawnResource").doAction(map);
+        List<Action> turnActions = ActionFactory.getTurnActions();
+
+        for (Action action : turnActions) {
+            map = action.doAction(map);
+        }
 
         return map;
     }

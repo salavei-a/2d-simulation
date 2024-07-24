@@ -5,7 +5,7 @@ import com.asalavei.model.common.Coordinates;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.asalavei.Main.RANDOM;
+import static com.asalavei.Main.random;
 
 public class CoordinatesFactory {
     private static Map<String, Coordinates> pool = new HashMap<>();
@@ -23,6 +23,6 @@ public class CoordinatesFactory {
     }
 
     public static Coordinates getRandomCoordinates(int mapSize) {
-        return createCoordinates(RANDOM.nextInt(mapSize) + 1, RANDOM.nextInt(mapSize) + 1);
+        return createCoordinates(random.nextInt(mapSize) + 1, random.nextInt(mapSize) + 1);
     }
 }
