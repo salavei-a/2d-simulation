@@ -4,6 +4,6 @@ import com.asalavei.model.entities.Entities;
 
 public class Grass extends Resource {
     public Grass() {
-        super(Entities.GRASS);
+        super(Entities.GRASS, 4);
     }
 }
