@@ -6,12 +6,14 @@ import com.asalavei.view.ConsoleRenderer;
 import com.asalavei.view.Renderer;
 
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public class Simulation {
-    private WorldMap map;
+    private volatile boolean isPaused = false;
     private final Logger logger = Logger.getLogger(getClass().getName());
+    private WorldMap map;
 
     public Simulation(WorldMap map) {
         this.map = map;
@@ -24,7 +26,21 @@ public class Simulation {
         map = initMap(map);
         renderer.render(map, turnCounter);
 
+        startKeyListenerForPause();
+
         while (isSimulationActive()) {
+            synchronized (this) {
+                while (isPaused) {
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        logger.info("Thread was interrupted during pause. Shutdown");
+                        return;
+                    }
+                }
+            }
+
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
@@ -58,7 +74,29 @@ public class Simulation {
         return map;
     }
 
-    public void pause() {
-        //TODO
+    public void startKeyListenerForPause() {
+        new Thread(this::listenForKeyPress).start();
+    }
+
+    private void listenForKeyPress() {
+        Scanner scanner = new Scanner(System.in);
+
+        while (isSimulationActive()) {
+            String line = scanner.nextLine();
+            if ("p".equalsIgnoreCase(line)) {
+                togglePause();
+            }
+        }
+
+        scanner.close();
+    }
+
+    private void togglePause() {
+        synchronized (this) {
+            isPaused = !isPaused;
+            if (!isPaused) {
+                notifyAll();
+            }
+        }
     }
 }
