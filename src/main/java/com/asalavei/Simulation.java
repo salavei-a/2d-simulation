@@ -6,12 +6,12 @@ import com.asalavei.view.ConsoleRenderer;
 import com.asalavei.view.Renderer;
 
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public class Simulation {
-    private volatile boolean isPaused = false;
+    private boolean paused = false;
+    private boolean running = true;
     private final Logger logger = Logger.getLogger(getClass().getName());
     private WorldMap map;
 
@@ -26,37 +26,28 @@ public class Simulation {
         map = initMap(map);
         renderer.render(map, turnCounter);
 
-        startKeyListenerForPause();
-
-        while (isSimulationActive()) {
-            synchronized (this) {
-                while (isPaused) {
-                    try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        logger.info("Thread was interrupted during pause. Shutdown");
-                        return;
-                    }
-                }
-            }
-
+        while (isActive()) {
             try {
-                TimeUnit.SECONDS.sleep(1);
+                TimeUnit.SECONDS.sleep(0);
+
+                if (!paused) {
+                    map = nextTurn(map);
+                    turnCounter++;
+                    renderer.render(map, turnCounter);
+                }
+
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 logger.info("Thread was interrupted. Shutdown");
-                break;
+                return;
             }
-
-            map = nextTurn(map);
-            turnCounter++;
-            renderer.render(map, turnCounter);
         }
+
+        renderer.printMenu();
     }
 
-    private boolean isSimulationActive() {
-        return map.isHerbivoresAlive();
+    private boolean isActive() {
+        return map.isHerbivoresAlive() && running;
     }
 
     private WorldMap initMap(WorldMap map) {
@@ -74,29 +65,11 @@ public class Simulation {
         return map;
     }
 
-    public void startKeyListenerForPause() {
-        new Thread(this::listenForKeyPress).start();
+    public void togglePause() {
+        paused = !paused;
     }
 
-    private void listenForKeyPress() {
-        Scanner scanner = new Scanner(System.in);
-
-        while (isSimulationActive()) {
-            String line = scanner.nextLine();
-            if ("p".equalsIgnoreCase(line)) {
-                togglePause();
-            }
-        }
-
-        scanner.close();
-    }
-
-    private void togglePause() {
-        synchronized (this) {
-            isPaused = !isPaused;
-            if (!isPaused) {
-                notifyAll();
-            }
-        }
+    public void stop() {
+        running = false;
     }
 }
