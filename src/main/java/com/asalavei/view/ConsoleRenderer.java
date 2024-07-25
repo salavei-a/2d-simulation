@@ -31,4 +31,14 @@ public class ConsoleRenderer implements Renderer {
 
         System.out.println(turnCounter);
     }
+
+    @Override
+    public void printMenu() {
+        System.out.println("╔════════════════════════════╗");
+        System.out.println("║ Keyboard Shortcuts:        ║");
+        System.out.println("║ 's' - Start new simulation ║");
+        System.out.println("║ 'p' - Pause/Resume         ║");
+        System.out.println("║ 'q' - Quit                 ║");
+        System.out.println("╚════════════════════════════╝");
+    }
 }
