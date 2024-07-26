@@ -15,33 +15,36 @@ public class Main {
     public static void main(String[] args) {
         Renderer renderer = new ConsoleRenderer();
         Scanner scanner = new Scanner(System.in);
-        boolean active = true;
+        boolean isRunning = true;
 
         Optional<Simulation> simulation = Optional.empty();
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
         renderer.printControls();
 
-        while (active) {
+        while (isRunning) {
             if (scanner.hasNextLine()) {
                 String input = scanner.nextLine();
+                Command command = Command.fromString(input);
 
-                switch (input) {
-                    case "s" -> {
-                        simulation.ifPresent(Simulation::stop);
+                if (command != null) {
+                    switch (command) {
+                        case START_NEW_SIMULATION -> {
+                            simulation.ifPresent(Simulation::stop);
 
-                        simulation = Optional.of(new Simulation(WorldMapFactory.createMap(10)));
-                        executorService.submit(simulation.get()::start);
+                            simulation = Optional.of(new Simulation(WorldMapFactory.createMap(10)));
+                            executorService.submit(simulation.get()::start);
+                        }
+                        case PAUSE_RESUME -> simulation.ifPresent(Simulation::togglePause);
+                        case QUIT -> {
+                            simulation.ifPresent(Simulation::stop);
+                            isRunning = false;
+                        }
+                        default -> throw new IllegalArgumentException("Unknown command: " + command);
                     }
-                    case "p" -> simulation.ifPresent(Simulation::togglePause);
-                    case "q" -> {
-                        simulation.ifPresent(Simulation::stop);
-                        active = false;
-                    }
-                    default -> {
-                        System.out.println("Invalid command: " + input);
-                        renderer.printControls();
-                    }
+                } else {
+                    System.out.println("Invalid command: " + input);
+                    renderer.printControls();
                 }
             }
         }
