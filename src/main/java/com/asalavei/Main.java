@@ -3,6 +3,7 @@ package com.asalavei;
 import com.asalavei.view.ConsoleRenderer;
 import com.asalavei.view.Renderer;
 
+import java.util.Optional;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
@@ -16,7 +17,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean active = true;
 
-        Simulation simulation = null;
+        Optional<Simulation> simulation = Optional.empty();
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
         renderer.printControls();
@@ -26,30 +27,21 @@ public class Main {
                 String input = scanner.nextLine();
 
                 switch (input) {
-                    case "s":
-                        if (simulation != null) {
-                            simulation.stop();
-                        }
-                        simulation = new Simulation(WorldMapFactory.createMap(10));
-                        executorService.submit(simulation::start);
-                        break;
+                    case "s" -> {
+                        simulation.ifPresent(Simulation::stop);
 
-                    case "p":
-                        if (simulation != null) {
-                            simulation.togglePause();
-                        }
-                        break;
-
-                    case "q":
-                        if (simulation != null) {
-                            simulation.stop();
-                        }
+                        simulation = Optional.of(new Simulation(WorldMapFactory.createMap(10)));
+                        executorService.submit(simulation.get()::start);
+                    }
+                    case "p" -> simulation.ifPresent(Simulation::togglePause);
+                    case "q" -> {
+                        simulation.ifPresent(Simulation::stop);
                         active = false;
-                        break;
-
-                    default:
+                    }
+                    default -> {
                         System.out.println("Invalid command: " + input);
                         renderer.printControls();
+                    }
                 }
             }
         }
