@@ -16,19 +16,18 @@ public class Simulation {
     private WorldMap map;
 
     public Simulation(WorldMap map) {
-        this.map = map;
+        this.map = ActionFactory.getInitAction().doAction(map);
     }
 
     public void start() {
         Renderer renderer = new ConsoleRenderer();
         int turnCounter = 0;
 
-        map = initMap(map);
         renderer.render(map, turnCounter);
 
         while (isActive()) {
             try {
-                TimeUnit.SECONDS.sleep(0);
+                TimeUnit.SECONDS.sleep(1);
 
                 if (!paused) {
                     map = nextTurn(map);
@@ -48,11 +47,6 @@ public class Simulation {
 
     private boolean isActive() {
         return map.isHerbivoresAlive() && running;
-    }
-
-    private WorldMap initMap(WorldMap map) {
-        List<Action> initActions = ActionFactory.getInitActions();
-        return initActions.getFirst().doAction(map);
     }
 
     public WorldMap nextTurn(WorldMap map) {
