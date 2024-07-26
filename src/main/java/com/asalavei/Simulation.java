@@ -23,7 +23,7 @@ public class Simulation {
         Renderer renderer = new ConsoleRenderer();
         int turnCounter = 0;
 
-        renderer.render(map, turnCounter);
+        renderer.printStart();
 
         while (isActive()) {
             try {
@@ -31,8 +31,7 @@ public class Simulation {
 
                 if (!paused) {
                     map = nextTurn(map);
-                    turnCounter++;
-                    renderer.render(map, turnCounter);
+                    renderer.render(map, turnCounter++);
                 }
 
             } catch (InterruptedException e) {
@@ -42,7 +41,12 @@ public class Simulation {
             }
         }
 
-        renderer.printMenu();
+        if (running) {
+            renderer.printEnd();
+            renderer.printControls();
+        } else {
+            renderer.printInterrupt();
+        }
     }
 
     private boolean isActive() {

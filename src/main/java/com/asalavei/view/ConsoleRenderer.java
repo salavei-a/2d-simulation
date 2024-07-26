@@ -29,16 +29,33 @@ public class ConsoleRenderer implements Renderer {
             line.setLength(0);
         }
 
-        System.out.println(turnCounter);
+        System.out.println("Turn: " + turnCounter);
     }
 
     @Override
-    public void printMenu() {
-        System.out.println("╔════════════════════════════╗");
-        System.out.println("║ Keyboard Shortcuts:        ║");
-        System.out.println("║ 's' - Start new simulation ║");
-        System.out.println("║ 'p' - Pause/Resume         ║");
-        System.out.println("║ 'q' - Quit                 ║");
-        System.out.println("╚════════════════════════════╝");
+    public void printControls() {
+        System.out.println("************************************");
+        System.out.println("*        SIMULATION CONTROLS       *");
+        System.out.println("************************************");
+        System.out.println("Keyboard Shortcuts:");
+        System.out.println("  's' - Start new simulation");
+        System.out.println("  'p' - Pause/Resume");
+        System.out.println("  'q' - Quit");
+        System.out.println("************************************");
+    }
+
+    @Override
+    public void printStart() {
+        System.out.println("Simulation has started\n");
+    }
+
+    @Override
+    public void printEnd() {
+        System.out.println("Simulation has ended\n");
+    }
+
+    @Override
+    public void printInterrupt() {
+        System.out.println("Simulation has been interrupted\n");
     }
 }
