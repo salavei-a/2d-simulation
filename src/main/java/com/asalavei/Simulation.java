@@ -24,6 +24,7 @@ public class Simulation {
         int turnCounter = 0;
 
         renderer.printStart();
+        renderer.render(map, turnCounter);
 
         while (isActive()) {
             try {
@@ -31,7 +32,8 @@ public class Simulation {
 
                 if (!paused) {
                     map = nextTurn(map);
-                    renderer.render(map, turnCounter++);
+                    turnCounter++;
+                    renderer.render(map, turnCounter);
                 }
 
             } catch (InterruptedException e) {
