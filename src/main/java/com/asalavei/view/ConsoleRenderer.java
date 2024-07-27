@@ -58,4 +58,14 @@ public class ConsoleRenderer implements Renderer {
     public void printInterrupt() {
         System.out.println("Simulation has been interrupted\n");
     }
+
+    @Override
+    public void printActionUnavailable() {
+        System.out.println("No active simulation to pause or resume");
+    }
+
+    @Override
+    public void printInvalidCommand(String command) {
+        System.out.println("Invalid command: " + command);
+    }
 }

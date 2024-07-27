@@ -12,4 +12,8 @@ public interface Renderer {
     void printEnd();
 
     void printInterrupt();
+
+    void printActionUnavailable();
+
+    void printInvalidCommand(String command);
 }

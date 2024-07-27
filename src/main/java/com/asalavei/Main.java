@@ -23,29 +23,23 @@ public class Main {
         renderer.printControls();
 
         while (isRunning) {
-            if (scanner.hasNextLine()) {
-                String input = scanner.nextLine();
-                Command command = Command.fromString(input);
+            String input = scanner.nextLine();
+            Command command = Command.fromString(input);
 
-                if (command != null) {
-                    switch (command) {
-                        case START_NEW_SIMULATION -> {
-                            simulation.ifPresent(Simulation::stop);
+            switch (command) {
+                case START_NEW_SIMULATION -> {
+                    simulation.ifPresent(Simulation::stop);
 
-                            simulation = Optional.of(new Simulation(WorldMapFactory.createMap(10)));
-                            executorService.submit(simulation.get()::start);
-                        }
-                        case PAUSE_RESUME -> simulation.ifPresent(Simulation::togglePause);
-                        case QUIT -> {
-                            simulation.ifPresent(Simulation::stop);
-                            isRunning = false;
-                        }
-                        default -> throw new IllegalArgumentException("Unknown command: " + command);
-                    }
-                } else {
-                    System.out.println("Invalid command: " + input);
-                    renderer.printControls();
+                    simulation = Optional.of(new Simulation(WorldMapFactory.createMap(10)));
+                    executorService.submit(simulation.get()::start);
                 }
+                case PAUSE_RESUME ->
+                        simulation.ifPresentOrElse(Simulation::togglePause, renderer::printActionUnavailable);
+                case QUIT -> {
+                    simulation.ifPresent(Simulation::stop);
+                    isRunning = false;
+                }
+                default -> renderer.printInvalidCommand(input);
             }
         }
 

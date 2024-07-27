@@ -3,7 +3,8 @@ package com.asalavei;
 public enum Command {
     START_NEW_SIMULATION("s"),
     PAUSE_RESUME("p"),
-    QUIT("q");
+    QUIT("q"),
+    INVALID_COMMAND("");
 
     private final String key;
 
@@ -21,6 +22,7 @@ public enum Command {
                 return command;
             }
         }
-        return null;
+
+        return INVALID_COMMAND;
     }
 }
