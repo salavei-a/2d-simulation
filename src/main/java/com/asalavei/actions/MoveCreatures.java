@@ -8,7 +8,7 @@ import com.asalavei.model.entities.creatures.Creature;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MoveCreature extends Action {
+public class MoveCreatures extends Action {
 
     @Override
     public WorldMap doAction(WorldMap map) {
