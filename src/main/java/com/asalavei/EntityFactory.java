@@ -21,7 +21,10 @@ public class EntityFactory {
         resources.add(new Flower());
     }
 
-    public Entity createEntity(Entities entities, Coordinates coordinates) {
+    private EntityFactory() {
+    }
+
+    public static Entity createEntity(Entities entities, Coordinates coordinates) {
         return switch (entities) {
             case PREDATOR -> new Predator(coordinates);
             case HERBIVORE -> new Herbivore(coordinates);
@@ -33,7 +36,7 @@ public class EntityFactory {
         };
     }
 
-    public Entity createResource() {
+    public static Entity createResource() {
         return resources.get(random.nextInt(resources.size()));
     }
 }

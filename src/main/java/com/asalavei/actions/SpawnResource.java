@@ -35,6 +35,6 @@ public class SpawnResource extends Action {
             coordinates = CoordinatesFactory.getRandomCoordinates(map.getSize());
         } while (!map.isPlaceEmpty(coordinates));
 
-        map.setEntity(coordinates, new EntityFactory().createResource());
+        map.setEntity(coordinates, EntityFactory.createResource());
     }
 }
