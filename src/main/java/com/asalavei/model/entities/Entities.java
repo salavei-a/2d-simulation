@@ -1,34 +1,40 @@
 package com.asalavei.model.entities;
 
-import static com.asalavei.Main.random;
+import com.asalavei.model.entities.creatures.Herbivore;
+import com.asalavei.model.entities.creatures.Predator;
+import com.asalavei.model.entities.environment.Flower;
+import com.asalavei.model.entities.environment.Grass;
+import com.asalavei.model.entities.environment.Rock;
+import com.asalavei.model.entities.environment.Tree;
 
 public enum Entities {
-    PREDATOR("🦁"),
-    HERBIVORE("🐐"),
-    ROCK("🪨"),
-    GRASS("🌿"),
-    TREE("🌴"),
-    FLOWER("🌷"),
-    NO_ENTITY("⬛");
+    PREDATOR("🦁", 0.04, Predator.class),
+    HERBIVORE("🐐", 0.06, Herbivore.class),
+    GRASS("🌿", 0.1, Grass.class),
+    FLOWER("🌷", 0.1, Flower.class),
+    ROCK("🪨", 0.05, Rock.class),
+    TREE("🌴", 0.05, Tree.class),
+    NO_ENTITY("⬛", 0, null);
 
     private final String sprite;
+    private final double spawnRate;
+    private final Class<? extends Entity> entityClass;
 
-    Entities(String sprite) {
+    Entities(String sprite, double spawnRate, Class<? extends Entity> entityClass) {
         this.sprite = sprite;
+        this.spawnRate = spawnRate;
+        this.entityClass = entityClass;
     }
 
     public String getSprite() {
         return sprite;
     }
 
-    public static Entities getRandomEntityType() {
-        Entities entities;
+    public double getSpawnRate() {
+        return spawnRate;
+    }
 
-        do {
-            entities = values()[random.nextInt(values().length)];
-        }
-        while (entities == NO_ENTITY);
-
-        return entities;
+    public Class<? extends Entity> getEntityClass() {
+        return entityClass;
     }
 }
