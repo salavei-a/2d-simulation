@@ -7,7 +7,7 @@ import com.asalavei.model.entities.Entities;
 import java.util.Map;
 
 public class Predator extends Creature<Herbivore> {
-    private int attackDamage;
+    private final int attackDamage;
 
     public Predator(Coordinates coordinates) {
         super(coordinates, Entities.PREDATOR);

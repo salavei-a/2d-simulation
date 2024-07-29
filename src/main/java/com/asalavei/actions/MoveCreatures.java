@@ -6,7 +6,7 @@ import com.asalavei.model.entities.creatures.Creature;
 public class MoveCreatures extends Action {
     @Override
     public WorldMap doAction(WorldMap map) {
-        for (Creature creature : map.getEntitiesByType(Creature.class)) {
+        for (Creature<?> creature : map.getEntitiesByType(Creature.class)) {
             creature.makeMove(map);
 
             if (creature.isDead()) {

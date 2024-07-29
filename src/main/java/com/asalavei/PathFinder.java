@@ -15,7 +15,7 @@ public class PathFinder {
     private PathFinder() {
     }
 
-    public static Coordinates getPlaceToMove(Creature creature, WorldMap map) {
+    public static Coordinates getPlaceToMove(Creature<?> creature, WorldMap map) {
         Queue<Coordinates> queue = new LinkedList<>();
         Set<Coordinates> explored = new HashSet<>();
         Map<Coordinates, Coordinates> cameFrom = new HashMap<>();
@@ -46,7 +46,7 @@ public class PathFinder {
         return start;
     }
 
-    private static List<Coordinates> getAvailableMovementCoordinates(Creature creature, WorldMap map) {
+    private static List<Coordinates> getAvailableMovementCoordinates(Creature<?> creature, WorldMap map) {
         List<Coordinates> availableMovementCoordinates = new ArrayList<>();
 
         for (Coordinates coordinates : getAdjacentCoordinates(creature.getCoordinates(), map, creature.getSpeed())) {
@@ -79,7 +79,7 @@ public class PathFinder {
         return adjacentCoordinates;
     }
 
-    private static boolean isTarget(Creature creature, Entity entity) {
+    private static boolean isTarget(Creature<?> creature, Entity entity) {
         return creature instanceof Predator && entity instanceof Herbivore ||
                 creature instanceof Herbivore && entity instanceof Resource;
     }
