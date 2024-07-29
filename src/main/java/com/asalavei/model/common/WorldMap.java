@@ -58,27 +58,30 @@ public class WorldMap {
     }
 
     public Map<Coordinates, Entity> getEntitiesNearby(Coordinates coordinates) {
-        int row = coordinates.getRow();
-        int column = coordinates.getColumn();
+        return getAdjacentCoordinates(coordinates, 1).stream()
+                .filter(entities::containsKey)
+                .collect(Collectors.toMap(
+                        adjacentCoordinates -> adjacentCoordinates,
+                        entities::get));
+    }
 
-        Map<Coordinates, Entity> entitiesNearby = new HashMap<>();
+    public List<Coordinates> getAdjacentCoordinates(Coordinates coordinates, int adjacencyRadius) {
+        List<Coordinates> adjacentCoordinates = new ArrayList<>();
 
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
+        for (int i = -adjacencyRadius; i <= adjacencyRadius; i++) {
+            for (int j = -adjacencyRadius; j <= adjacencyRadius; j++) {
                 if (i == 0 && j == 0) continue;
 
-                int newRow = row + i;
-                int newColumn = column + j;
+                int row = coordinates.getRow() + i;
+                int column = coordinates.getColumn() + j;
 
-                if (isWithinMapBounds(newRow, newColumn)) {
-                    Coordinates adjacentCoordinates = CoordinatesFactory.createCoordinates(newRow, newColumn);
-
-                    entitiesNearby.put(adjacentCoordinates, entities.get(adjacentCoordinates));
+                if (isWithinMapBounds(row, column)) {
+                    adjacentCoordinates.add(CoordinatesFactory.createCoordinates(row, column));
                 }
             }
         }
 
-        return entitiesNearby;
+        return adjacentCoordinates;
     }
 
     public boolean isHerbivoresAlive() {
