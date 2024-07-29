@@ -3,12 +3,10 @@ package com.asalavei.model.entities.creatures;
 import com.asalavei.model.common.Coordinates;
 import com.asalavei.model.common.WorldMap;
 import com.asalavei.model.entities.Entities;
-import com.asalavei.model.entities.Entity;
 
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Map;
 
-public class Predator extends Creature {
+public class Predator extends Creature<Herbivore> {
     private int attackDamage;
 
     public Predator(Coordinates coordinates) {
@@ -17,22 +15,16 @@ public class Predator extends Creature {
     }
 
     @Override
-    public void makeMove(WorldMap map) {
-        Set<Entity> herbivoreNearby = map.getEntitiesNearby(coordinates).values()
-                .stream()
-                .filter(entity -> entity instanceof Herbivore)
-                .collect(Collectors.toSet());
-
-        if (!herbivoreNearby.isEmpty()) {
-            attack(herbivoreNearby.iterator().next());
-        } else {
-            moveToEntity(map);
-        }
+    protected void interactWithEntity(Map.Entry<Coordinates, Herbivore> targetNearby, WorldMap map) {
+        attack(targetNearby.getValue());
     }
 
-    private void attack(Entity entity) {
-        if (entity instanceof Herbivore herbivore) {
-            herbivore.decreaseHP(attackDamage);
-        }
+    private void attack(Herbivore herbivore) {
+        herbivore.decreaseHP(attackDamage);
+    }
+
+    @Override
+    protected Class<Herbivore> getTargetClass() {
+        return Herbivore.class;
     }
 }

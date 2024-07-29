@@ -5,6 +5,7 @@ import com.asalavei.model.entities.Entity;
 import com.asalavei.model.entities.creatures.Herbivore;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class WorldMap {
     private final int size;
@@ -49,6 +50,13 @@ public class WorldMap {
         return !entities.containsKey(coordinates);
     }
 
+    public <T extends Entity> Map<Coordinates, T> getTargetEntitiesNearby(Coordinates coordinates, Class<T> entityType) {
+        return getEntitiesNearby(coordinates).entrySet()
+                .stream()
+                .filter(entry -> entityType.isInstance(entry.getValue()))
+                .collect(Collectors.toMap(Map.Entry::getKey, entry -> entityType.cast(entry.getValue())));
+    }
+
     public Map<Coordinates, Entity> getEntitiesNearby(Coordinates coordinates) {
         int row = coordinates.getRow();
         int column = coordinates.getColumn();
@@ -71,10 +79,6 @@ public class WorldMap {
         }
 
         return entitiesNearby;
-    }
-
-    public boolean isEntitiesNearby(Coordinates coordinates) {
-        return !getEntitiesNearby(coordinates).isEmpty();
     }
 
     public boolean isHerbivoresAlive() {
