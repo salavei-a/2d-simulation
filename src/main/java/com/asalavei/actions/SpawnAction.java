@@ -8,6 +8,7 @@ import com.asalavei.model.entities.Entities;
 import com.asalavei.model.entities.Entity;
 
 public abstract class SpawnAction extends Action {
+
     protected void spawnWhileCurrentRateIsLower(double currentRate, Entities entity, WorldMap map) {
         while (currentRate < entity.getSpawnRate()) {
             Coordinates coordinates = CoordinatesFactory.getRandomCoordinates(map.getSize());

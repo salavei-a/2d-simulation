@@ -7,7 +7,6 @@ import com.asalavei.model.entities.Entities;
 import com.asalavei.model.entities.Entity;
 
 public class ConsoleRenderer implements Renderer {
-
     @Override
     public void render(WorldMap map, int turnCounter) {
         int mapSize = map.getSize();

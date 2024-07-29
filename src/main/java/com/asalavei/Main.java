@@ -4,14 +4,11 @@ import com.asalavei.view.ConsoleRenderer;
 import com.asalavei.view.Renderer;
 
 import java.util.Optional;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
-    public static final Random random = new Random();
-
     public static void main(String[] args) {
         Renderer renderer = new ConsoleRenderer();
         Scanner scanner = new Scanner(System.in);

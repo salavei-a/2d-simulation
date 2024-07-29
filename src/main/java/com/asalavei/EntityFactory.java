@@ -8,18 +8,7 @@ import com.asalavei.model.entities.environment.*;
 
 import com.asalavei.model.entities.Entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.asalavei.Main.random;
-
 public class EntityFactory {
-    private static final List<Entity> resources = new ArrayList<>();
-
-    static {
-        resources.add(new Grass());
-        resources.add(new Flower());
-    }
 
     private EntityFactory() {
     }
@@ -34,9 +23,5 @@ public class EntityFactory {
             case TREE -> new Tree();
             default -> throw new IllegalArgumentException("Unknown entity: " + entities);
         };
-    }
-
-    public static Entity createResource() {
-        return resources.get(random.nextInt(resources.size()));
     }
 }

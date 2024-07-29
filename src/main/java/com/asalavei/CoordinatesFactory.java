@@ -4,11 +4,11 @@ import com.asalavei.model.common.Coordinates;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.asalavei.Main.random;
+import java.util.Random;
 
 public class CoordinatesFactory {
-    private static Map<String, Coordinates> pool = new HashMap<>();
+    private static final Map<String, Coordinates> pool = new HashMap<>();
+    private static final Random random = new Random();
 
     private CoordinatesFactory() {
     }
