@@ -7,9 +7,6 @@ import com.asalavei.model.common.WorldMap;
 import com.asalavei.model.entities.Entities;
 import com.asalavei.model.entities.Entity;
 
-import java.util.List;
-import java.util.Map;
-
 public abstract class SpawnAction extends Action {
     protected void spawnWhileCurrentRateIsLower(double currentRate, Entities entity, WorldMap map) {
         while (currentRate < entity.getSpawnRate()) {
@@ -17,17 +14,12 @@ public abstract class SpawnAction extends Action {
 
             if (map.isPlaceEmpty(coordinates)) {
                 map.setEntity(coordinates, EntityFactory.createEntity(entity, coordinates));
-                currentRate = getCurrentRate(map.getEntities(), entity.getEntityClass(), map);
+                currentRate = getCurrentRate(entity.getEntityClass(), map);
             }
         }
     }
 
-    protected double getCurrentRate(Map<Coordinates, Entity> entities, Class<? extends Entity> entityClass, WorldMap map) {
-        List<Entity> filteredEntities = entities.values()
-                .stream()
-                .filter(entityClass::isInstance)
-                .toList();
-
-        return filteredEntities.size() / Math.pow(map.getSize(), 2);
+    protected double getCurrentRate(Class<? extends Entity> entityClass, WorldMap map) {
+        return map.getEntitiesByType(entityClass).size() / Math.pow(map.getSize(), 2);
     }
 }

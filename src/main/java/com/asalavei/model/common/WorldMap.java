@@ -8,7 +8,7 @@ import java.util.*;
 
 public class WorldMap {
     private final int size;
-    private Map<Coordinates, Entity> entities = new HashMap<>();
+    private final Map<Coordinates, Entity> entities = new HashMap<>();
 
     private WorldMap(int size) {
         this.size = size;
@@ -22,13 +22,11 @@ public class WorldMap {
         return entities.get(coordinates);
     }
 
-    public Map<Coordinates, Entity> getEntities() {
-        return entities;
-    }
-
-    public void setEntities(Map<Coordinates, Entity> entities) {
-        this.entities.clear();
-        this.entities.putAll(entities);
+    public <T extends Entity> List<T> getEntitiesByType(Class<T> entityType) {
+        return entities.values().stream()
+                .filter(entityType::isInstance)
+                .map(entityType::cast)
+                .toList();
     }
 
     public void setEntity(Coordinates coordinates, Entity entity) {
