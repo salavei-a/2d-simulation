@@ -10,7 +10,7 @@ public class Predator extends Creature<Herbivore> {
     private final int attackDamage;
 
     public Predator(Coordinates coordinates) {
-        super(coordinates, Entities.PREDATOR);
+        super(coordinates, 1, Entities.PREDATOR);
         this.attackDamage = 5;
     }
 

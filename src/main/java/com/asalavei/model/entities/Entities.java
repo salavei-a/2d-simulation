@@ -1,6 +1,7 @@
 package com.asalavei.model.entities;
 
-import com.asalavei.model.entities.creatures.Herbivore;
+import com.asalavei.model.entities.creatures.Goat;
+import com.asalavei.model.entities.creatures.Horse;
 import com.asalavei.model.entities.creatures.Predator;
 import com.asalavei.model.entities.environment.Flower;
 import com.asalavei.model.entities.environment.Grass;
@@ -9,9 +10,10 @@ import com.asalavei.model.entities.environment.Tree;
 
 public enum Entities {
     PREDATOR("🦁", 0.04, Predator.class),
-    HERBIVORE("🐐", 0.06, Herbivore.class),
-    GRASS("🌿", 0.1, Grass.class),
-    FLOWER("🌷", 0.1, Flower.class),
+    GOAT("🐐", 0.04, Goat.class),
+    HORSE("🐎", 0.02, Horse.class),
+    GRASS("🌿", 0.05, Grass.class),
+    FLOWER("🌷", 0.05, Flower.class),
     ROCK("🪨", 0.05, Rock.class),
     TREE("🌴", 0.05, Tree.class),
     NO_ENTITY("⬛", 0, null);

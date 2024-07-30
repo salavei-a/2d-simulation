@@ -7,10 +7,10 @@ import com.asalavei.model.entities.environment.Resource;
 
 import java.util.Map;
 
-public class Herbivore extends Creature<Resource> {
+public abstract class Herbivore extends Creature<Resource> {
 
-    public Herbivore(Coordinates coordinates) {
-        super(coordinates, Entities.HERBIVORE);
+    protected Herbivore(Coordinates coordinates, int speed, Entities entityType) {
+        super(coordinates, speed, entityType);
     }
 
     @Override

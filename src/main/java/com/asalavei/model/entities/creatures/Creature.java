@@ -13,10 +13,10 @@ public abstract class Creature<T extends Entity> extends Entity {
     private int hP;
     protected Coordinates coordinates;
 
-    protected Creature(Coordinates coordinates, Entities entityType) {
+    protected Creature(Coordinates coordinates, int speed, Entities entityType) {
         super(entityType);
         this.coordinates = coordinates;
-        this.speed = 1;
+        this.speed = speed;
         this.hP = 50;
     }
 
