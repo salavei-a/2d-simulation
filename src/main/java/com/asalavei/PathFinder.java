@@ -16,29 +16,31 @@ public class PathFinder {
     }
 
     public static Coordinates getPlaceToMove(Creature<?> creature, WorldMap map) {
-        Queue<Coordinates> queue = new LinkedList<>();
+        Queue<ArrayList<Coordinates>> queue = new LinkedList<>();
         Set<Coordinates> explored = new HashSet<>();
-        Map<Coordinates, Coordinates> cameFrom = new HashMap<>();
-        List<Coordinates> availableMovementCoordinates = getAvailableMovementCoordinates(creature, map);
-
         Coordinates start = creature.getCoordinates();
-        queue.add(start);
-        cameFrom.put(start, null);
+        int speed = creature.getSpeed();
+
+        ArrayList<Coordinates> startPath = new ArrayList<>();
+        startPath.add(start);
+        queue.add(startPath);
+        explored.add(start);
 
         while (!queue.isEmpty()) {
-            Coordinates current = queue.poll();
+            ArrayList<Coordinates> currentPath = queue.poll();
+            Coordinates current = currentPath.getLast();
 
             if (isTarget(creature, map.getEntity(current))) {
-                return findPathToTarget(start, current, cameFrom, availableMovementCoordinates);
+                return getAvailableCoordinatesForMove(currentPath, speed, map);
             }
 
             for (Coordinates neighbor : map.getAdjacentCoordinates(current, 1)) {
                 if (!explored.contains(neighbor) &&
-                    !cameFrom.containsKey(neighbor) &&
                     (map.isPlaceEmpty(neighbor) || isTarget(creature, map.getEntity(neighbor)))) {
-                        queue.add(neighbor);
-                        cameFrom.put(neighbor, current);
-                        explored.add(neighbor);
+                    ArrayList<Coordinates> newPath = new ArrayList<>(currentPath);
+                    newPath.add(neighbor);
+                    queue.add(newPath);
+                    explored.add(neighbor);
                 }
             }
         }
@@ -46,37 +48,19 @@ public class PathFinder {
         return start;
     }
 
-    private static List<Coordinates> getAvailableMovementCoordinates(Creature<?> creature, WorldMap map) {
-        List<Coordinates> availableMovementCoordinates = new ArrayList<>();
+    private static Coordinates getAvailableCoordinatesForMove(ArrayList<Coordinates> path, int speed, WorldMap map) {
+        for (int i = Math.min(speed, path.size() - 1); i >= 1; i--) {
+            Coordinates available = path.get(i);
 
-        for (Coordinates coordinates : map.getAdjacentCoordinates(creature.getCoordinates(), creature.getSpeed())) {
-            if (map.isPlaceEmpty(coordinates)) {
-                availableMovementCoordinates.add(coordinates);
+            if (map.isPlaceEmpty(available)) {
+                return available;
             }
         }
-        return availableMovementCoordinates;
+        return path.getFirst();
     }
 
     private static boolean isTarget(Creature<?> creature, Entity entity) {
         return creature instanceof Predator && entity instanceof Herbivore ||
                 creature instanceof Herbivore && entity instanceof Resource;
-    }
-
-    private static Coordinates findPathToTarget(Coordinates start, Coordinates goal, Map<Coordinates, Coordinates> cameFrom, List<Coordinates> availableMovementCoordinates) {
-        LinkedList<Coordinates> path = new LinkedList<>();
-        Coordinates current = goal;
-
-        while (current != null && !current.equals(start)) {
-            path.addFirst(current);
-            current = cameFrom.get(current);
-        }
-
-        for (Coordinates step : path) {
-            if (availableMovementCoordinates.contains(step)) {
-                return step;
-            }
-        }
-
-        return start;
     }
 }
