@@ -10,7 +10,7 @@ import com.asalavei.simulation.entities.Entity;
 public abstract class SpawnAction extends Action {
 
     protected void spawnWhileCurrentRateIsLower(double currentRate, Entities entity, WorldMap map) {
-        while (currentRate < entity.getSpawnRate()) {
+        while (isCurrentRateLower(currentRate, entity)) {
             Coordinates coordinates = CoordinatesFactory.getRandomCoordinates(map.getSize());
 
             if (map.isPlaceEmpty(coordinates)) {
@@ -18,6 +18,10 @@ public abstract class SpawnAction extends Action {
                 currentRate = getCurrentRate(entity.getEntityClass(), map);
             }
         }
+    }
+
+    private boolean isCurrentRateLower(double currentRate, Entities entity) {
+        return currentRate < entity.getSpawnRate();
     }
 
     protected double getCurrentRate(Class<? extends Entity> entityClass, WorldMap map) {

@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 public class Simulation {
     private static final Logger logger = Logger.getLogger(Simulation.class.getName());
 
-    private volatile boolean paused = false;
-    private volatile boolean stopped = false;
+    private volatile boolean isPaused = false;
+    private volatile boolean isStopped = false;
 
     private final WorldMap map;
 
@@ -17,8 +17,7 @@ public class Simulation {
         this.map = map;
     }
 
-    public void start() {
-        Renderer renderer = new ConsoleRenderer();
+    public void start(Renderer renderer) {
         int turnCounter = 0;
 
         renderer.printStart();
@@ -30,14 +29,14 @@ public class Simulation {
         while (isRunning()) {
             sleep();
 
-            if (!isPaused()) {
+            if (!isPaused) {
                 nextTurn(map);
                 turnCounter++;
                 renderer.render(map, turnCounter);
             }
         }
 
-        if (isStopped()) {
+        if (isStopped) {
             renderer.printStop();
             sleep();
         } else {
@@ -64,23 +63,15 @@ public class Simulation {
     }
 
     private boolean isRunning() {
-        return map.isHerbivoresAlive() && !stopped;
-    }
-
-    private boolean isPaused() {
-        return paused;
-    }
-
-    private boolean isStopped() {
-        return stopped;
+        return map.isHerbivoresAlive() && !isStopped;
     }
 
 
     public synchronized void togglePause() {
-        paused = !paused;
+        isPaused = !isPaused;
     }
 
     public synchronized void stop() {
-        stopped = true;
+        isStopped = true;
     }
 }

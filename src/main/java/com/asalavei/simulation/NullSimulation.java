@@ -7,7 +7,7 @@ public class NullSimulation extends Simulation {
     }
 
     @Override
-    public void start() {
+    public void start(Renderer renderer) {
         // do nothing
     }
 
