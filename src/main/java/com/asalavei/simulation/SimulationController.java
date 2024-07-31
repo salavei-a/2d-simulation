@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 public class SimulationController {
     private final Renderer renderer = new ConsoleRenderer();
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
-    private Simulation simulation = null;
+    private Simulation simulation = new NullSimulation();
     private boolean isRunning = true;
 
     public void handleCommand(String input) {
@@ -16,21 +16,17 @@ public class SimulationController {
 
         switch (command) {
             case START_NEW_SIMULATION -> {
-                if (simulation != null) simulation.stop();
-
+                simulation.stop();
                 simulation = new Simulation(WorldMapFactory.createMap(10));
                 executorService.submit(simulation::start);
             }
             case PAUSE_RESUME -> {
-                if (simulation != null) {
-                    simulation.togglePause();
-                } else {
-                    renderer.printActionUnavailable();
-                }
+                if (simulation instanceof NullSimulation) renderer.printActionUnavailable();
+
+                simulation.togglePause();
             }
             case QUIT -> {
-                if (simulation != null) simulation.stop();
-
+                simulation.stop();
                 isRunning = false;
             }
             default -> renderer.printInvalidCommand(input);
