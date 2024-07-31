@@ -17,7 +17,7 @@ public class SimulationController {
         switch (command) {
             case START_NEW_SIMULATION -> {
                 simulation.stop();
-                simulation = new Simulation(WorldMapFactory.createMap(10));
+                simulation = new Simulation(WorldMapFactory.createMap(20));
                 executorService.submit(simulation::start);
             }
             case PAUSE_RESUME -> {
