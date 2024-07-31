@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActionFactory {
+    private static final List<Action> initActions = new ArrayList<>();
     private static final List<Action> turnActions = new ArrayList<>();
 
     static {
+        initActions.add(new InitEntitiesSpawn());
         turnActions.add(new MoveCreatures());
         turnActions.add(new ResourceSpawn());
     }
@@ -16,8 +18,8 @@ public class ActionFactory {
     private ActionFactory() {
     }
 
-    public static Action getInitAction() {
-        return new InitEntitiesSpawn();
+    public static List<Action> getInitAction() {
+        return initActions;
     }
 
     public static List<Action> getTurnActions() {

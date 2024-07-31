@@ -1,9 +1,7 @@
 package com.asalavei.simulation;
 
-import com.asalavei.simulation.actions.Action;
 import com.asalavei.simulation.factory.ActionFactory;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -13,10 +11,10 @@ public class Simulation {
     private volatile boolean paused = false;
     private volatile boolean stopped = false;
 
-    private WorldMap map;
+    private final WorldMap map;
 
     public Simulation(WorldMap map) {
-        this.map = ActionFactory.getInitAction().doAction(map);
+        this.map = map;
     }
 
     public void start() {
@@ -25,13 +23,15 @@ public class Simulation {
 
         renderer.printStart();
         sleep();
+
+        initAction(map);
         renderer.render(map, turnCounter);
 
         while (isRunning()) {
             sleep();
 
             if (!isPaused()) {
-                map = nextTurn(map);
+                nextTurn(map);
                 turnCounter++;
                 renderer.render(map, turnCounter);
             }
@@ -55,14 +55,12 @@ public class Simulation {
         }
     }
 
-    public WorldMap nextTurn(WorldMap map) {
-        List<Action> turnActions = ActionFactory.getTurnActions();
+    private void initAction(WorldMap map) {
+        ActionFactory.getInitAction().forEach(action -> action.doAction(map));
+    }
 
-        for (Action action : turnActions) {
-            map = action.doAction(map);
-        }
-
-        return map;
+    private void nextTurn(WorldMap map) {
+        ActionFactory.getTurnActions().forEach(action -> action.doAction(map));
     }
 
     private boolean isRunning() {
