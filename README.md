@@ -11,8 +11,7 @@ and their environment based on predefined rules.
 ## Implemented Features
 
 - **Entity System**:
-    - Various types of entities including predators, herbivores and environmental elements (e.g., grass, flowers, rocks,
-      trees)
+    - Various types of entities including predators, herbivores and environmental elements
     - Entities have unique behaviors and interact with each other (e.g., predators hunt herbivores, herbivores eat
       resources)
 
@@ -21,7 +20,7 @@ and their environment based on predefined rules.
     - Entities have coordinates and can move around the map
 
 - **Simulation Lifecycle**:
-    - The simulation runs in turns with a pause and resume functionality
+    - The simulation progresses in turns with a pause and resume functionality implemented using multithreading
     - Commands for controlling the simulation (start, pause/resume, quit)
     - The simulation ends when there are no more herbivores left
 
