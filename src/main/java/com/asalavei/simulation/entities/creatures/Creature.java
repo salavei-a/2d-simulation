@@ -28,6 +28,8 @@ public abstract class Creature<T extends Entity> extends Entity {
         return coordinates;
     }
 
+    protected abstract Class<T> getTargetClass();
+
     protected void increaseHP(int hP) {
         this.hP += hP;
 
@@ -50,10 +52,6 @@ public abstract class Creature<T extends Entity> extends Entity {
         }
     }
 
-    protected abstract void interactWithEntity(Map.Entry<Coordinates, T> targetNearby, WorldMap map);
-
-    protected abstract Class<T> getTargetClass();
-
     protected void moveToEntity(WorldMap map) {
         Coordinates newCoordinates = PathFinder.getPlaceToMove(this, map);
 
@@ -61,6 +59,8 @@ public abstract class Creature<T extends Entity> extends Entity {
         map.setEntity(newCoordinates, this);
         coordinates = newCoordinates;
     }
+
+    protected abstract void interactWithEntity(Map.Entry<Coordinates, T> targetNearby, WorldMap map);
 
     public boolean isDead() {
         return this.hP <= 0;

@@ -23,10 +23,10 @@ public class WorldMap {
         return entities.get(coordinates);
     }
 
-    public <T extends Entity> List<T> getEntitiesByType(Class<T> entityType) {
+    public <T extends Entity> List<T> getEntitiesByType(Class<T> entityClass) {
         return entities.values().stream()
-                .filter(entityType::isInstance)
-                .map(entityType::cast)
+                .filter(entityClass::isInstance)
+                .map(entityClass::cast)
                 .toList();
     }
 

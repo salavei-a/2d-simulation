@@ -14,8 +14,7 @@ public class CoordinatesFactory {
     }
 
     public static Coordinates createCoordinates(int row, int column) {
-        String key = generateKey(row, column);
-        return pool.computeIfAbsent(key, k -> Coordinates.create(row, column));
+        return pool.computeIfAbsent(generateKey(row, column), key -> Coordinates.create(row, column));
     }
 
     private static String generateKey(int row, int column) {
