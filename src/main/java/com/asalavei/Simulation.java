@@ -10,9 +10,11 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public class Simulation {
-    private boolean paused = false;
-    private boolean running = true;
-    private final Logger logger = Logger.getLogger(getClass().getName());
+    private static final Logger logger = Logger.getLogger(Simulation.class.getName());
+
+    private volatile boolean paused = false;
+    private volatile boolean stopped = false;
+
     private WorldMap map;
 
     public Simulation(WorldMap map) {
@@ -24,35 +26,35 @@ public class Simulation {
         int turnCounter = 0;
 
         renderer.printStart();
+        sleep();
         renderer.render(map, turnCounter);
 
-        while (isActive()) {
-            try {
-                TimeUnit.SECONDS.sleep(1);
+        while (isRunning()) {
+            sleep();
 
-                if (!paused) {
-                    map = nextTurn(map);
-                    turnCounter++;
-                    renderer.render(map, turnCounter);
-                }
-
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                logger.info("Thread was interrupted. Shutdown");
-                return;
+            if (!isPaused()) {
+                map = nextTurn(map);
+                turnCounter++;
+                renderer.render(map, turnCounter);
             }
         }
 
-        if (running) {
+        if (isStopped()) {
+            renderer.printStop();
+            sleep();
+        } else {
             renderer.printEnd();
             renderer.printControls();
-        } else {
-            renderer.printInterrupt();
         }
     }
 
-    private boolean isActive() {
-        return map.isHerbivoresAlive() && running;
+    private void sleep() {
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            logger.info("Thread was interrupted during sleep. Simulation is shutting down");
+        }
     }
 
     public WorldMap nextTurn(WorldMap map) {
@@ -65,11 +67,24 @@ public class Simulation {
         return map;
     }
 
-    public void togglePause() {
+    private boolean isRunning() {
+        return map.isHerbivoresAlive() && !stopped;
+    }
+
+    private boolean isPaused() {
+        return paused;
+    }
+
+    private boolean isStopped() {
+        return stopped;
+    }
+
+
+    public synchronized void togglePause() {
         paused = !paused;
     }
 
-    public void stop() {
-        running = false;
+    public synchronized void stop() {
+        stopped = true;
     }
 }

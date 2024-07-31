@@ -11,7 +11,7 @@ public interface Renderer {
 
     void printEnd();
 
-    void printInterrupt();
+    void printStop();
 
     void printActionUnavailable();
 

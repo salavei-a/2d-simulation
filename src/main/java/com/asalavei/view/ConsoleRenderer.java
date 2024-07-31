@@ -45,7 +45,7 @@ public class ConsoleRenderer implements Renderer {
 
     @Override
     public void printStart() {
-        System.out.println("Simulation has started\n");
+        System.out.println("Simulation has started");
     }
 
     @Override
@@ -54,8 +54,8 @@ public class ConsoleRenderer implements Renderer {
     }
 
     @Override
-    public void printInterrupt() {
-        System.out.println("Simulation has been interrupted\n");
+    public void printStop() {
+        System.out.println("Simulation has been stopped\n");
     }
 
     @Override
