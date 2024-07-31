@@ -5,6 +5,8 @@ import com.asalavei.simulation.entities.Entities;
 import com.asalavei.simulation.entities.Entity;
 
 public class ConsoleRenderer implements Renderer {
+    private static final String ANSI_THIN_SPACE = "\u2009";
+
     @Override
     public void render(WorldMap map, int turnCounter) {
         int mapSize = map.getSize();
@@ -16,9 +18,9 @@ public class ConsoleRenderer implements Renderer {
                 Entity entity = map.getEntity(coordinates);
 
                 if (map.isPlaceEmpty(coordinates)) {
-                    line.append(Entities.NO_ENTITY.getSprite());
+                    line.append(Entities.NO_ENTITY.getSprite()).append(ANSI_THIN_SPACE);
                 } else {
-                    line.append(entity.getSprite());
+                    line.append(entity.getSprite()).append(ANSI_THIN_SPACE);
                 }
             }
 
