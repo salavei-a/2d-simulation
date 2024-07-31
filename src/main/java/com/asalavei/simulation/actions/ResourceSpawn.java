@@ -15,13 +15,11 @@ public class ResourceSpawn extends SpawnAction {
     }
 
     @Override
-    public WorldMap doAction(WorldMap map) {
+    public void doAction(WorldMap map) {
         for (Entities resource : resources) {
             double currentRate = getCurrentRate(resource.getEntityClass(), map);
 
             spawnWhileCurrentRateIsLower(currentRate, resource, map);
         }
-
-        return map;
     }
 }
