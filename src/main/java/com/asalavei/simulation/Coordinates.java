@@ -28,7 +28,7 @@ public class Coordinates {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Coordinates that = (Coordinates) o;
-        return Objects.equals(row, that.row) && Objects.equals(column, that.column);
+        return row == that.row && column == that.column;
     }
 
     @Override
